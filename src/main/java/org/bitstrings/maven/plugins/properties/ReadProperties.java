@@ -9,11 +9,23 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.project.MavenProject;
+
 import com.google.common.io.Closer;
 
 public class ReadProperties
-    extends BaseDefineProperties
+    extends BaseDefineProperties<ReadProperties.Callback>
 {
+    public static class Callback
+        extends BaseDefineProperties.Callback
+    {
+        public void loadedProperties( Properties properties, ReadableFile readableFile ) {}
+
+        public void missingFile( ReadableFile readableFile ) {}
+
+        public void errorReadingFile( DefinePropertiesException e, ReadableFile readableFile ) {}
+    }
+
     public static class ReadableFile
     {
         private File file;
@@ -45,8 +57,7 @@ public class ReadProperties
         return fromFiles;
     }
 
-    public void readFiles()
-        throws PropertiesDefinitionException
+    public void readFiles( Callback callback )
     {
         for ( ReadableFile readableFile : fromFiles )
         {
@@ -54,6 +65,11 @@ public class ReadProperties
 
             if ( !file.exists() )
             {
+                if ( callback != null )
+                {
+                    callback.missingFile( readableFile );
+                }
+
                 continue;
             }
 
@@ -80,6 +96,11 @@ public class ReadProperties
 
                         properties.load( in );
                     }
+
+                    if ( callback != null )
+                    {
+                        callback.loadedProperties( properties, readableFile );
+                    }
                 }
                 finally
                 {
@@ -88,8 +109,17 @@ public class ReadProperties
             }
             catch ( IOException e )
             {
-                throw new PropertiesDefinitionException( e );
+                if ( callback != null )
+                {
+                    callback.errorReadingFile( new DefinePropertiesException( e ), readableFile );
+                }
             }
         }
+    }
+
+    @Override
+    public void defineProperties( MavenProject project, Properties properties, Callback callback )
+    {
+        super.defineProperties( project, properties, callback );
     }
 }
