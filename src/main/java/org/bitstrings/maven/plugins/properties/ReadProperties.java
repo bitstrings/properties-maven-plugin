@@ -9,15 +9,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.maven.project.MavenProject;
-
 import com.google.common.io.Closer;
 
 public class ReadProperties
-    extends BaseDefineProperties<ReadProperties.Callback>
+    extends BaseDefineProperties
 {
     public static class Callback
-        extends BaseDefineProperties.Callback
     {
         public void loadedProperties( Properties properties, ReadableFile readableFile ) {}
 
@@ -118,8 +115,9 @@ public class ReadProperties
     }
 
     @Override
-    public void defineProperties( MavenProject project, Properties properties, Callback callback )
+    public void defineProperties(PropertiesProvider provider)
     {
-        super.defineProperties( project, properties, callback );
+        // TODO Auto-generated method stub
+        super.defineProperties(provider);
     }
 }

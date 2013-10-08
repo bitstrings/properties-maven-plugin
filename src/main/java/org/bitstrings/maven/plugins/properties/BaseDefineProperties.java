@@ -2,26 +2,34 @@ package org.bitstrings.maven.plugins.properties;
 
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.maven.project.MavenProject;
 
-public class BaseDefineProperties<C extends BaseDefineProperties.Callback>
+public class BaseDefineProperties
 {
-    public static class Callback
+    public static interface PropertiesProvider
     {
-        public Map.Entry<String, String> processProperty( Map.Entry<String, String> property )
-        {
-            return property;
-        }
+        Map.Entry<String, String> nextProperty();
     }
 
-    public static final String TARGET_MAVEN = "maven";
+    public static final String TARGET_PROJECT = "project";
     public static final String TARGET_SYSTEM = "system";
 
-    private String target = TARGET_MAVEN;
+    private MavenProject mavenProject;
+
+    private String target = TARGET_PROJECT;
 
     private boolean override = true;
+
+    public MavenProject getMavenProject()
+    {
+        return mavenProject;
+    }
+
+    public void setMavenProject(MavenProject mavenProject)
+    {
+        this.mavenProject = mavenProject;
+    }
 
     public String getTarget()
     {
@@ -33,13 +41,13 @@ public class BaseDefineProperties<C extends BaseDefineProperties.Callback>
         return override;
     }
 
-    public void defineProperties( MavenProject project, Properties properties, C callback )
+    public void defineProperties( PropertiesProvider provider )
     {
         Properties targetProperties;
 
-        if ( TARGET_MAVEN.equalsIgnoreCase( target ) )
+        if ( TARGET_PROJECT.equalsIgnoreCase( target ) )
         {
-            targetProperties = project.getProperties();
+            targetProperties = getMavenProject().getProperties();
 
         }
         else if ( TARGET_SYSTEM.equalsIgnoreCase( target ) )
@@ -51,20 +59,17 @@ public class BaseDefineProperties<C extends BaseDefineProperties.Callback>
             throw new IllegalStateException( "Unknow target: " + target );
         }
 
-        for ( Map.Entry<String, String> entry :
-                    ( (Set<Map.Entry<String, String>>) (Set<?>) properties.entrySet() ) )
+        Map.Entry<String, String> property;
+
+        while ( ( property = provider.nextProperty() ) != null )
         {
-            final String name = entry.getKey();
+            final String name = property.getKey();
 
             if ( override || !targetProperties.containsKey( name ) )
             {
-                if ( callback != null )
-                {
-                    entry = callback.processProperty( entry );
-                }
-
-                targetProperties.setProperty( name, entry.getValue() );
+                targetProperties.setProperty( name, property.getValue() );
             }
+
         }
     }
 }
