@@ -1,2 +1,44 @@
 properties-maven-plugin
 =======================
+
+```xml
+<groupid></groupId>
+<artifactId></artifactId>
+<executions>
+    <execution>
+        <goals>
+            <goal>properties</goal>
+        </goals>
+        <configuration>
+            <dependencies>
+                <select>
+                    <includes/>
+                    <excludes/>
+                    <transitive/>
+                    <scope/>
+                </select>
+                <define>
+                    <target>maven|system</target>
+                    <override/>
+                    <properties>
+                        <namePattern/>
+                        <valuePattern/>
+                    </properties>
+                </define>
+                <write>
+                    <select>
+                        <includes/>
+                        <excludes/>
+                    </select>
+                    <files>
+                        <file>
+                            <path/>
+                            <append/>
+                        </file>
+                    </files>
+                </write>
+            </dependencies>
+        </configuration>
+    <execution>
+<executions>
+```
