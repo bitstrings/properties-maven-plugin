@@ -2,8 +2,8 @@ package org.bitstrings.maven.plugins.properties;
 
 import static com.google.common.base.Objects.toStringHelper;
 
-public class SetMavenProperties
-    extends PropertiesSetter
+public class MavenPropertiesSetter
+    extends PropertiesSink
 {
     public static final String TARGET_PROJECT = "project";
     public static final String TARGET_SYSTEM = "system";

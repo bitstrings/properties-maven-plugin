@@ -59,12 +59,12 @@ limitations under the License.
                                     </property>
                                 </propertiesEntries>
                             </define>
-                            <set>
-                                <mavenProperties>
+                            <sink>
+                                <mavenPropertiesSetter>
                                     <target>project</target>
                                     <override>true</override>
-                                </mavenProperties>
-                            </set>
+                                </mavenPropertiesSetter>
+                            </sink>
 
                         </configuration>
                     </execution>

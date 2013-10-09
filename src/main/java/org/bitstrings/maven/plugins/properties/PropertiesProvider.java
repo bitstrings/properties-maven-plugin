@@ -4,7 +4,7 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import java.util.Properties;
 
-public class PropertiesDefiner
+public class PropertiesProvider
 {
     private String groupName;
 

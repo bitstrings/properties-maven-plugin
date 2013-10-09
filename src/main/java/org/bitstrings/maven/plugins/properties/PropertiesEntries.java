@@ -3,8 +3,8 @@ package org.bitstrings.maven.plugins.properties;
 import java.io.IOException;
 import java.io.StringReader;
 
-public class DefineProperties
-    extends PropertiesDefiner
+public class PropertiesEntries
+    extends PropertiesProvider
 {
     public static class Property
     {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PropertiesSetter
+public class PropertiesSink
 {
     private List<SelectPropertiesSet> selectPropertiesSets = new ArrayList<SelectPropertiesSet>();
 

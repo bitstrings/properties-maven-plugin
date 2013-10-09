@@ -23,10 +23,10 @@ public class PropertiesMojo
     private boolean verbose;
 
     @Parameter( alias="define" )
-    private List<PropertiesDefiner> definePropertiesList;
+    private List<PropertiesProvider> propertiesProviders;
 
-    @Parameter( alias="set" )
-    private List<PropertiesSetter> propertiesSetterList;
+    @Parameter( alias="sink" )
+    private List<PropertiesSink> propertiesSinks;
 
     @Override
     public void execute()
@@ -34,10 +34,10 @@ public class PropertiesMojo
     {
 
         System.out.println( "--- [ definePropertiesList ] ---" );
-        System.out.println( definePropertiesList );
+        System.out.println( propertiesProviders );
         System.out.println( "---" );
         System.out.println( "--- [ propertiesSetterList ] ---" );
-        System.out.println( propertiesSetterList );
+        System.out.println( propertiesSinks );
         System.out.println( "---" );
 
         System.out.println( project.getProperties() );
