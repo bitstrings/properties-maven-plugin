@@ -1,31 +1,23 @@
 package org.bitstrings.maven.plugins.properties;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class BasePropertiesSetter
 {
-    private SelectSet selectProperties;
+    private List<SelectPropertiesSet> selectPropertiesSets = new ArrayList<SelectPropertiesSet>();
 
-    private SelectSet selectGroups;
-
-    public SelectSet getSelectProperties()
+    public List<SelectPropertiesSet> getSelectPropertiesSets()
     {
-        return selectProperties;
+        return selectPropertiesSets;
     }
 
-    public void setSelectProperties( SelectSet selectProperties )
+    public void addSelectPropertiesSet( SelectPropertiesSet selectPropertiesSet )
     {
-        this.selectProperties = selectProperties;
+        selectPropertiesSets.add( selectPropertiesSet );
     }
 
-    public SelectSet getSelectGroups()
-    {
-        return selectGroups;
-    }
-
-    public void setSelectGroups( SelectSet selectGroups )
-    {
-        this.selectGroups = selectGroups;
-    }
 
 //    public void defineProperties( PropertiesProvider provider )
 //    {
