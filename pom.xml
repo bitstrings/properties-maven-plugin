@@ -83,6 +83,14 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                    <configuration>
+                        <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${java.javadoc.version}</version>
                     <configuration>
@@ -113,16 +121,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>${maven-plugin-plugin.version}</version>
                 <extensions>true</extensions>
-                <configuration>
-                    <useJava5>true</useJava5>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>generated-helpmojo</id>
+                        <id>mojo-descriptor</id>
                         <goals>
-                            <goal>helpmojo</goal>
+                            <goal>descriptor</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -142,6 +146,11 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
+            <version>${maven.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
             <version>${maven.version}</version>
         </dependency>
         <dependency>
@@ -198,35 +207,6 @@
 
     <profiles>
         <profile>
-            <id>build-proper</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>it</id>
             <build>
                 <plugins>
@@ -252,7 +232,7 @@
                                         <goal>package</goal>
                                     </goals>
                                     <pomIncludes>
-                                        <pomInclude>pom.xml</pomInclude>
+                                        <pomInclude>**/pom.xml</pomInclude>
                                     </pomIncludes>
                                 </configuration>
                             </execution>

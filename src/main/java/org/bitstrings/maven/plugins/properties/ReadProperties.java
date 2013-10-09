@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties.XXX;
+package org.bitstrings.maven.plugins.properties;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -9,13 +9,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-import org.bitstrings.maven.plugins.properties.BasePropertiesSetter;
-import org.bitstrings.maven.plugins.properties.PropertiesSetterException;
-
 import com.google.common.io.Closer;
 
 public class ReadProperties
-    extends BasePropertiesSetter
+    extends PropertiesDefiner
 {
     public static abstract class Callback
     {

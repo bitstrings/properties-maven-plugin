@@ -1,20 +1,48 @@
 package org.bitstrings.maven.plugins.properties;
 
-import java.util.Properties;
+import java.io.IOException;
+import java.io.StringReader;
 
 public class DefineProperties
+    extends PropertiesDefiner
 {
-    private String groupName;
-
-    protected Properties properties = new Properties();
-
-    public String getGroupName()
+    public static class Property
     {
-        return groupName;
+        private String name;
+
+        private String value;
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public String getValue()
+        {
+            return value;
+        }
     }
 
-    public void setGroupName( String groupName )
+    public void addProperty( Property property )
     {
-        this.groupName = groupName;
+        properties.put( property.getName(), property.getValue() );
+    }
+
+    public void set( String value )
+    {
+        StringReader in = new StringReader( value );
+
+        try
+        {
+            properties.load( in );
+        }
+        catch ( IOException e )
+        {
+
+        }
+        finally
+        {
+            in.close();
+        }
     }
 }
