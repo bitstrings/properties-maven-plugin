@@ -1,6 +1,8 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.XXX;
 
 import java.util.List;
+
+import org.bitstrings.maven.plugins.properties.BasePropertiesSetter;
 
 public class DefineFromDependencies
 {
@@ -22,7 +24,7 @@ public class DefineFromDependencies
     }
 
     public static class Define
-        extends BaseDefineProperties
+        extends BasePropertiesSetter
     {
 
     }

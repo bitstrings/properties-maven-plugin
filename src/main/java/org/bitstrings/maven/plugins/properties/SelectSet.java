@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class SelectProperties
+import com.google.common.base.Splitter;
+
+public class SelectSet
 {
     private List<String> includes;
 
@@ -15,9 +17,28 @@ public class SelectProperties
         return includes;
     }
 
+    public void setIncludes( List<String> includes )
+    {
+        this.includes = includes;
+    }
+
     public List<String> getExcludes()
     {
         return excludes;
+    }
+
+    public void setExcludes( List<String> excludes )
+    {
+        this.excludes = excludes;
+    }
+
+    public void set( String value )
+    {
+        includes =
+            Splitter.on( ',' )
+                .omitEmptyStrings()
+                .trimResults()
+                .splitToList( value );
     }
 
     public Properties resolve( Properties source )

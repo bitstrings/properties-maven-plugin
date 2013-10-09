@@ -10,34 +10,40 @@ properties-maven-plugin
             <goal>properties</goal>
         </goals>
         <configuration>
-            <dependencies>
-                <select>
-                    <includes/>
-                    <excludes/>
-                    <transitive/>
-                    <scope/>
-                </select>
-                <define>
-                    <target>maven|system</target>
-                    <override/>
-                    <properties>
-                        <namePattern/>
-                        <valuePattern/>
-                    </properties>
-                </define>
-                <write>
+            <define>
+                <dependencies>
                     <select>
                         <includes/>
                         <excludes/>
+                        <transitive/>
+                        <scope/>
                     </select>
-                    <files>
-                        <file>
-                            <path/>
-                            <append/>
-                        </file>
-                    </files>
-                </write>
-            </dependencies>
+                    <format>
+                        <namePattern/>
+                        <valuePattern/>
+                    </format>
+                </dependencies>
+            </define>
+            <set>
+                <select>
+                    <includes/>
+                    <excludes/>
+                </select>
+                <target/>
+                <override/>
+            </set>
+            <write>
+                <select>
+                    <includes/>
+                    <excludes/>
+                </select>
+                <files>
+                    <file>
+                        <path/>
+                        <append/>
+                    </file>
+                </files>
+            </write>
         </configuration>
     <execution>
 <executions>

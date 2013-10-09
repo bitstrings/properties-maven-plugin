@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.XXX;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -9,18 +9,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.BasePropertiesSetter;
+import org.bitstrings.maven.plugins.properties.PropertiesSetterException;
+
 import com.google.common.io.Closer;
 
 public class ReadProperties
-    extends BaseDefineProperties
+    extends BasePropertiesSetter
 {
-    public static class Callback
+    public static abstract class Callback
     {
         public void loadedProperties( Properties properties, ReadableFile readableFile ) {}
 
         public void missingFile( ReadableFile readableFile ) {}
 
-        public void errorReadingFile( DefinePropertiesException e, ReadableFile readableFile ) {}
+        public void errorReadingFile( PropertiesSetterException e, ReadableFile readableFile ) {}
     }
 
     public static class ReadableFile
@@ -108,16 +111,9 @@ public class ReadProperties
             {
                 if ( callback != null )
                 {
-                    callback.errorReadingFile( new DefinePropertiesException( e ), readableFile );
+                    callback.errorReadingFile( new PropertiesSetterException( e ), readableFile );
                 }
             }
         }
-    }
-
-    @Override
-    public void defineProperties(PropertiesProvider provider)
-    {
-        // TODO Auto-generated method stub
-        super.defineProperties(provider);
     }
 }
