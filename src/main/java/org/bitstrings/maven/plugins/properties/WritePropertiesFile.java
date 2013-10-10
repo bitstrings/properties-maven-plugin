@@ -14,8 +14,6 @@ public class WritePropertiesFile
 
     public static final String MERGE_IF_ABSENT = "ifAbsent";
 
-    public static final String MERGE_APPEND = "append";
-
     public static final String MERGE_SKIP = "skip";
 
     private File file;
@@ -78,55 +76,40 @@ public class WritePropertiesFile
     {
         Properties targetProperties;
 
-        if ( file.exists() )
+        try
         {
-            if ( overwrite )
+            if ( overwrite || !file.exists() )
             {
                 targetProperties = properties;
             }
             else
             {
-                try
+                if ( MERGE_SKIP.equalsIgnoreCase( mergeScheme ) )
                 {
-                    if ( MERGE_SKIP.equalsIgnoreCase( mergeScheme ) )
-                    {
-                        return;
-                    }
-
-                    targetProperties = PropertiesHelper.loadProperties( file, xmlFormat );
-
-                    if ( MERGE_APPEND.equalsIgnoreCase( mergeScheme ) )
-                    {
-                        if ( xmlFormat )
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else if ( MERGE_OVERRIDE.equalsIgnoreCase( mergeScheme ) )
-                    {
-                        targetProperties.putAll( properties );
-
-                        PropertiesHelper.writeProperties( file, xmlFormat, targetProperties, comments );
-                    }
-                    else if ( MERGE_IF_ABSENT.equalsIgnoreCase( mergeScheme ) )
-                    {
-                        MapHelper.putAllIfAbsent( properties, targetProperties );
-
-                        PropertiesHelper.writeProperties( file, xmlFormat, targetProperties, comments );
-                    }
-                    else
-                    {
-
-                    }
+                    return;
                 }
-                catch ( IOException e )
+
+                targetProperties = PropertiesHelper.loadProperties( file, xmlFormat );
+
+                if ( MERGE_OVERRIDE.equalsIgnoreCase( mergeScheme ) )
                 {
+                    targetProperties.putAll( properties );
+                }
+                else if ( MERGE_IF_ABSENT.equalsIgnoreCase( mergeScheme ) )
+                {
+                    MapHelper.putAllIfAbsent( properties, targetProperties );
+                }
+                else
+                {
+
                 }
             }
+
+            PropertiesHelper.writeProperties( file, xmlFormat, targetProperties, comments );
+        }
+        catch ( IOException e )
+        {
+            e.printStackTrace();
         }
     }
 }

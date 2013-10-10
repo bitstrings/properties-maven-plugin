@@ -62,6 +62,8 @@ limitations under the License.
                             </define>
                             <sink>
                                 <mavenPropertiesSetter/>
+                                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</writePropertiesFile>
+                                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</writePropertiesFile>
                             </sink>
 
                         </configuration>

@@ -10,6 +10,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Properties;
 
 import com.google.common.io.Closer;
@@ -39,13 +43,13 @@ public final class PropertiesHelper
         {
             if ( isXml )
             {
-                BufferedInputStream in = closer.register( new BufferedInputStream( new FileInputStream( file ) ) );
+                InputStream in = closer.register( new BufferedInputStream( new FileInputStream( file ) ) );
 
                 properties.loadFromXML( in );
             }
             else
             {
-                BufferedReader in = closer.register( new BufferedReader( new FileReader( file ) ) );
+                Reader in = closer.register( new BufferedReader( new FileReader( file ) ) );
 
                 properties.load( in );
             }
@@ -61,6 +65,13 @@ public final class PropertiesHelper
     public static void writeProperties( File file, Boolean isXml, Properties properties, String comments )
         throws IOException
     {
+        final File parent = file.getParentFile();
+
+        if ( parent != null )
+        {
+            parent.mkdirs();
+        }
+
         if ( isXml == null )
         {
             isXml = isXmlFormat( file );
@@ -71,13 +82,13 @@ public final class PropertiesHelper
         {
             if ( isXml )
             {
-                BufferedOutputStream os = closer.register( new BufferedOutputStream( new FileOutputStream( file ) ) );
+                OutputStream os = closer.register( new BufferedOutputStream( new FileOutputStream( file ) ) );
 
                 properties.storeToXML( os, comments );
             }
             else
             {
-                BufferedWriter os = closer.register( new BufferedWriter( new FileWriter( file ) ) );
+                Writer os = closer.register( new BufferedWriter( new FileWriter( file ) ) );
 
                 properties.store( os, comments );
             }
