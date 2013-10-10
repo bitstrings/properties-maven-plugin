@@ -3,7 +3,7 @@ package org.bitstrings.maven.plugins.properties;
 import static com.google.common.base.Objects.toStringHelper;
 
 public class MavenPropertiesSetter
-    extends PropertiesSink
+    extends AbstractPropertiesSink
 {
     public static final String TARGET_PROJECT = "project";
     public static final String TARGET_SYSTEM = "system";
@@ -63,6 +63,12 @@ public class MavenPropertiesSetter
 //
 //      }
 //  }
+
+    @Override
+    protected void writeProperties(java.util.Properties properties)
+    {
+
+    }
 
     @Override
     public String toString()

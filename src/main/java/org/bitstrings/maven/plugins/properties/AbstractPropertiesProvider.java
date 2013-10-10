@@ -4,11 +4,13 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import java.util.Properties;
 
-public class PropertiesProvider
+public abstract class AbstractPropertiesProvider
 {
-    private String groupName;
+    public static final String DEFAULT_GROUP_NAME = "default";
 
-    protected Properties properties = new Properties();
+    private String groupName = DEFAULT_GROUP_NAME;
+
+    private final Properties properties = new Properties();
 
     public String getGroupName()
     {
@@ -19,6 +21,15 @@ public class PropertiesProvider
     {
         this.groupName = groupName;
     }
+
+    public Properties getProperties()
+    {
+        resolveProperties( properties );
+
+        return properties;
+    }
+
+    protected abstract void resolveProperties( Properties properties );
 
     @Override
     public String toString()

@@ -1,11 +1,16 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static com.google.common.base.Objects.toStringHelper;
+
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Properties;
 
 public class PropertiesEntries
-    extends PropertiesProvider
+    extends AbstractPropertiesProvider
 {
+    private final Properties properties = new Properties();
+
     public static class Property
     {
         private String name;
@@ -44,5 +49,21 @@ public class PropertiesEntries
         {
             in.close();
         }
+    }
+
+    @Override
+    protected void resolveProperties( Properties properties )
+    {
+        properties.putAll( this.properties );
+    }
+
+    @Override
+    public String toString()
+    {
+        return
+                toStringHelper( this )
+                .add( "properties", properties )
+                .addValue( super.toString() )
+                .toString();
     }
 }

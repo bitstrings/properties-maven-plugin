@@ -23,15 +23,19 @@ public class PropertiesMojo
     private boolean verbose;
 
     @Parameter( alias="define" )
-    private List<PropertiesProvider> propertiesProviders;
+    private List<AbstractPropertiesProvider> propertiesProviders;
 
     @Parameter( alias="sink" )
-    private List<PropertiesSink> propertiesSinks;
+    private List<AbstractPropertiesSink> propertiesSinks;
 
     @Override
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        for ( AbstractPropertiesProvider propertiesProvider : propertiesProviders  )
+        {
+            propertiesProvider.getProperties();
+        }
 
         System.out.println( "--- [ definePropertiesList ] ---" );
         System.out.println( propertiesProviders );
