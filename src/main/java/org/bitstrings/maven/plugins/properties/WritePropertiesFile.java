@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.util.MapHelper;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class WritePropertiesFile
@@ -19,11 +20,13 @@ public class WritePropertiesFile
 
     private File file;
 
-    private boolean xmlFormat = false;
+    private Boolean xmlFormat;
 
     private String mergeScheme = MERGE_OVERRIDE;
 
     private boolean overwrite = true;
+
+    private String comments;
 
     public File getFile()
     {
@@ -48,6 +51,16 @@ public class WritePropertiesFile
     public void setMergeScheme(String mergeScheme)
     {
         this.mergeScheme = mergeScheme;
+    }
+
+    public Boolean getXmlFormat()
+    {
+        return xmlFormat;
+    }
+
+    public void setXmlFormat(Boolean xmlFormat)
+    {
+        this.xmlFormat = xmlFormat;
     }
 
     public boolean isOverwrite()
@@ -84,7 +97,30 @@ public class WritePropertiesFile
 
                     if ( MERGE_APPEND.equalsIgnoreCase( mergeScheme ) )
                     {
-                        properties.putAll( targetProperties );
+                        if ( xmlFormat )
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else if ( MERGE_OVERRIDE.equalsIgnoreCase( mergeScheme ) )
+                    {
+                        targetProperties.putAll( properties );
+
+                        PropertiesHelper.writeProperties( file, xmlFormat, targetProperties, comments );
+                    }
+                    else if ( MERGE_IF_ABSENT.equalsIgnoreCase( mergeScheme ) )
+                    {
+                        MapHelper.putAllIfAbsent( properties, targetProperties );
+
+                        PropertiesHelper.writeProperties( file, xmlFormat, targetProperties, comments );
+                    }
+                    else
+                    {
+
                     }
                 }
                 catch ( IOException e )

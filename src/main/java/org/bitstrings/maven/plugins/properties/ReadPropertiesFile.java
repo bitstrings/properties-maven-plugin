@@ -13,7 +13,7 @@ public class ReadPropertiesFile
 {
     private File file;
 
-    private boolean xmlFormat = false;
+    private Boolean xmlFormat;
 
     private boolean ignoreMissingFile = false;
 
@@ -27,12 +27,12 @@ public class ReadPropertiesFile
         this.file = file;
     }
 
-    public boolean isXmlFormat()
+    public Boolean getXmlFormat()
     {
         return xmlFormat;
     }
 
-    public void setXmlFormat( boolean xmlFormat )
+    public void setXmlFormat( Boolean xmlFormat )
     {
         this.xmlFormat = xmlFormat;
     }
