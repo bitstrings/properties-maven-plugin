@@ -1,25 +1,21 @@
 package org.bitstrings.maven.plugins.properties;
 
-import static com.google.common.base.Objects.toStringHelper;
+import static com.google.common.base.Objects.*;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.google.common.io.Closer;
+import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class ReadPropertiesFile
     extends AbstractPropertiesProvider
 {
     private File file;
 
-    private boolean xmlFormat;
+    private boolean xmlFormat = false;
 
-    private boolean ignoreMissing;
+    private boolean ignoreMissingFile = false;
 
     public File getFile()
     {
@@ -41,14 +37,14 @@ public class ReadPropertiesFile
         this.xmlFormat = xmlFormat;
     }
 
-    public boolean isIgnoreMissing()
+    public boolean isIgnoreMissingFile()
     {
-        return ignoreMissing;
+        return ignoreMissingFile;
     }
 
-    public void setIgnoreMissing( boolean ignoreMissing )
+    public void setIgnoreMissingFile( boolean ignoreMissingFile )
     {
-        this.ignoreMissing = ignoreMissing;
+        this.ignoreMissingFile = ignoreMissingFile;
     }
 
     public void set( File file )
@@ -61,26 +57,7 @@ public class ReadPropertiesFile
     {
         try
         {
-            Closer closer = Closer.create();
-            try
-            {
-                if ( isXmlFormat() )
-                {
-                    BufferedInputStream in = closer.register( new BufferedInputStream( new FileInputStream( file ) ) );
-
-                    properties.loadFromXML( in );
-                }
-                else
-                {
-                    BufferedReader in = closer.register( new BufferedReader( new FileReader( file ) ) );
-
-                    properties.load( in );
-                }
-            }
-            finally
-            {
-                closer.close();
-            }
+            PropertiesHelper.loadProperties( file, xmlFormat );
         }
         catch ( IOException e )
         {
@@ -94,7 +71,7 @@ public class ReadPropertiesFile
                 toStringHelper( this )
                 .add( "file", file )
                 .add( "xmlFormat", xmlFormat )
-                .add( "ignoreMissing", ignoreMissing )
+                .add( "ignoreMissing", ignoreMissingFile )
                 .addValue( super.toString() )
                 .toString();
     }

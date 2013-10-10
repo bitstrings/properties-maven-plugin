@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.project.MavenProject;
-import org.bitstrings.maven.plugins.properties.util.SelectSets;
+import org.bitstrings.maven.plugins.properties.util.SelectSetHelper;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -69,7 +69,7 @@ public class PropertiesPluginContext
         }
 
         final List<String> selectedGroups =
-                    SelectSets.filter(
+                    SelectSetHelper.filter(
                         groupSet,
                         groupedPropertiesProvidersMap.keySet() );
 
@@ -80,7 +80,7 @@ public class PropertiesPluginContext
         if ( propertiesSet != null )
         {
             final List<String> selectedProperties =
-                        SelectSets.filter(
+                        SelectSetHelper.filter(
                             propertiesSet,
                             properties.stringPropertyNames() );
 

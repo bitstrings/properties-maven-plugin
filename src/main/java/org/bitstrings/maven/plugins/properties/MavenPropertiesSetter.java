@@ -4,7 +4,7 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import java.util.Properties;
 
-import org.bitstrings.maven.plugins.properties.util.Maps;
+import org.bitstrings.maven.plugins.properties.util.MapHelper;
 
 public class MavenPropertiesSetter
     extends AbstractPropertiesSink
@@ -61,7 +61,7 @@ public class MavenPropertiesSetter
         }
         else
         {
-            Maps.putAllIfAbsent( properties, targetProperties );
+            MapHelper.putAllIfAbsent( properties, targetProperties );
         }
     }
 

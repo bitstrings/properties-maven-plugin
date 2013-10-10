@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.bitstrings.maven.plugins.properties.SelectSet;
 
-public final class SelectSets
+public final class SelectSetHelper
 {
-    private SelectSets() {}
+    private SelectSetHelper() {}
 
     public static List<String> filter( SelectSet selectSet, Collection<String> source )
     {
