@@ -4,18 +4,29 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.project.MavenProject;
 import org.bitstrings.maven.plugins.properties.util.SelectSets;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-public class PropertiesStore
+public class PropertiesPluginContext
 {
+    private final MavenProject mavenProject;
+
     private final Multimap<String, AbstractPropertiesProvider>
                         groupedPropertiesProvidersMap =
                                 ArrayListMultimap.<String, AbstractPropertiesProvider> create();
 
-    public PropertiesStore() {}
+    public PropertiesPluginContext( MavenProject mavenProject )
+    {
+        this.mavenProject = mavenProject;
+    }
+
+    public MavenProject getMavenProject()
+    {
+        return mavenProject;
+    }
 
     public void addPropertiesProvider( AbstractPropertiesProvider propertiesProvider )
     {

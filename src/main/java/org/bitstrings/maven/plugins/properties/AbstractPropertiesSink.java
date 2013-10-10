@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-
 public abstract class AbstractPropertiesSink
 {
-    private PropertiesStore propertiesStore;
+    private PropertiesPluginContext context;
 
     private List<SelectPropertiesSet> selectPropertiesSets = new ArrayList<SelectPropertiesSet>();
 
@@ -21,14 +20,19 @@ public abstract class AbstractPropertiesSink
         selectPropertiesSets.add( selectPropertiesSet );
     }
 
-    public void setPropertiesStore( PropertiesStore propertiesStore )
+    public void setContext( PropertiesPluginContext context )
     {
-        this.propertiesStore = propertiesStore;
+        this.context = context;
+    }
+
+    public PropertiesPluginContext getContext()
+    {
+        return context;
     }
 
     public Properties getSelectedProperties()
     {
-        return propertiesStore.getProperties( selectPropertiesSets );
+        return context.getProperties( selectPropertiesSets );
     }
 
     public void write()
