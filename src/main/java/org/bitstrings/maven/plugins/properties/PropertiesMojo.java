@@ -17,7 +17,7 @@ public class PropertiesMojo
     extends AbstractMojo
 {
     @Component
-    private MavenProject project;
+    private MavenProject mavenProject;
 
     @Parameter( defaultValue = "false" )
     private boolean verbose;
@@ -32,18 +32,23 @@ public class PropertiesMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        PropertiesPluginContext context = new PropertiesPluginContext( mavenProject );
+
         for ( AbstractPropertiesProvider propertiesProvider : propertiesProviders  )
         {
-            propertiesProvider.getProperties();
+            context.addPropertiesProvider( propertiesProvider );
+            System.out.println( "--- [ define ] ---" );
+            System.out.println( propertiesProvider );
         }
 
-        System.out.println( "--- [ definePropertiesList ] ---" );
-        System.out.println( propertiesProviders );
-        System.out.println( "---" );
-        System.out.println( "--- [ propertiesSetterList ] ---" );
-        System.out.println( propertiesSinks );
-        System.out.println( "---" );
+        for ( AbstractPropertiesSink propertiesSink : propertiesSinks  )
+        {
+            propertiesSink.setContext( context );
+            propertiesSink.write();
+            System.out.println( "--- [ sink ] ---" );
+            System.out.println( propertiesSink );
+        }
 
-        System.out.println( project.getProperties() );
+        System.out.println( mavenProject.getProperties() );
     }
 }

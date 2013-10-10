@@ -49,7 +49,6 @@ limitations under the License.
 
                             <define>
                                 <propertiesEntries>
-                                    <groupName>A</groupName>
                                     <property>
                                         <name>A1</name>
                                         <value>V1</value>
@@ -62,10 +61,7 @@ limitations under the License.
                                 <readPropertiesFile>@basedir@/src/it/resources/test.properties</readPropertiesFile>
                             </define>
                             <sink>
-                                <mavenPropertiesSetter>
-                                    <target>project</target>
-                                    <override>true</override>
-                                </mavenPropertiesSetter>
+                                <mavenPropertiesSetter/>
                             </sink>
 
                         </configuration>

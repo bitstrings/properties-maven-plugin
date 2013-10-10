@@ -7,7 +7,7 @@
         <pluginExecution>
             <pluginExecutionFilter>
                 <goals>
-                    <goal>compose</goal>
+                    <goal>properties</goal>
                 </goals>
             </pluginExecutionFilter>
             <action>

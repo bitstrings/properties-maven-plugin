@@ -1,5 +1,8 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static com.google.common.base.Objects.firstNonNull;
+
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.Splitter;
@@ -12,7 +15,7 @@ public class SelectSet
 
     public List<String> getIncludes()
     {
-        return includes;
+        return firstNonNull( includes, Collections.EMPTY_LIST );
     }
 
     public void setIncludes( List<String> includes )
@@ -22,7 +25,7 @@ public class SelectSet
 
     public List<String> getExcludes()
     {
-        return excludes;
+        return firstNonNull( excludes, Collections.EMPTY_LIST );
     }
 
     public void setExcludes( List<String> excludes )

@@ -52,19 +52,32 @@ public class PropertiesPluginContext
 
     public Properties getProperties( SelectPropertiesSet selectPropertiesSet )
     {
+        SelectSet groupSet = selectPropertiesSet.getSelectGroups();
+
+        if ( groupSet == null )
+        {
+            groupSet = new SelectSet();
+            groupSet.set( AbstractPropertiesProvider.DEFAULT_GROUP_NAME );
+        }
+
         final List<String> selectedGroups =
                     SelectSets.filter(
-                        selectPropertiesSet.getSelectGroups(),
+                        groupSet,
                         groupedPropertiesProvidersMap.keySet() );
 
         final Properties properties = getUnifiedProperties( selectedGroups );
 
-        final List<String> selectedProperties =
-                    SelectSets.filter(
-                        selectPropertiesSet.getSelectProperties(),
-                        properties.stringPropertyNames() );
+        SelectSet propertiesSet = selectPropertiesSet.getSelectProperties();
 
-        properties.keySet().retainAll( selectedProperties );
+        if ( propertiesSet != null )
+        {
+            final List<String> selectedProperties =
+                        SelectSets.filter(
+                            propertiesSet,
+                            properties.stringPropertyNames() );
+
+            properties.keySet().retainAll( selectedProperties );
+        }
 
         return properties;
     }
