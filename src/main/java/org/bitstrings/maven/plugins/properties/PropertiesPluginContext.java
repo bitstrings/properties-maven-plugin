@@ -1,6 +1,6 @@
 package org.bitstrings.maven.plugins.properties;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -12,6 +12,17 @@ import com.google.common.collect.Multimap;
 
 public class PropertiesPluginContext
 {
+    private static final SelectSet NO_SELECT_IS_DEFAULT_GROUP = new SelectSet();
+
+    static
+    {
+        NO_SELECT_IS_DEFAULT_GROUP.set( AbstractPropertiesProvider.DEFAULT_GROUP_NAME );
+    }
+
+    private static final List<SelectPropertiesSet>
+                    NO_SELECT_LIST_IS_ALL =
+                                    Collections.singletonList( new SelectPropertiesSet() );
+
     private final MavenProject mavenProject;
 
     private final Multimap<String, AbstractPropertiesProvider>
@@ -39,9 +50,7 @@ public class PropertiesPluginContext
 
         for ( String groupName : groupsNames )
         {
-            Collection<AbstractPropertiesProvider> propertiesProviders = groupedPropertiesProvidersMap.get( groupName );
-
-            for ( AbstractPropertiesProvider propertiesProvider : propertiesProviders )
+            for ( AbstractPropertiesProvider propertiesProvider : groupedPropertiesProvidersMap.get( groupName ) )
             {
                 properties.putAll( propertiesProvider.getProperties() );
             }
@@ -56,8 +65,7 @@ public class PropertiesPluginContext
 
         if ( groupSet == null )
         {
-            groupSet = new SelectSet();
-            groupSet.set( AbstractPropertiesProvider.DEFAULT_GROUP_NAME );
+            groupSet = NO_SELECT_IS_DEFAULT_GROUP;
         }
 
         final List<String> selectedGroups =
@@ -85,6 +93,11 @@ public class PropertiesPluginContext
     public Properties getProperties( List<SelectPropertiesSet> selectPropertiesSets )
     {
         final Properties properties = new Properties();
+
+        if ( selectPropertiesSets.isEmpty() )
+        {
+            selectPropertiesSets = NO_SELECT_LIST_IS_ALL;
+        }
 
         for ( SelectPropertiesSet selectPropertiesSet : selectPropertiesSets )
         {
