@@ -37,7 +37,7 @@ public abstract class PropertiesSink
             PropertiesHelper.logOperationProperties( getLog(), getOperationTag(), properties, null );
         }
 
-        writeProperties( getSelectedProperties() );
+        writeProperties( properties );
     }
 
     protected abstract void writeProperties( Properties properties );
