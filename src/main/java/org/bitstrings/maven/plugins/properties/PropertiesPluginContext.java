@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 import org.bitstrings.maven.plugins.properties.util.SelectSetHelper;
 
@@ -16,7 +17,7 @@ public class PropertiesPluginContext
 
     static
     {
-        NO_SELECT_IS_DEFAULT_GROUP.set( AbstractPropertiesProvider.DEFAULT_GROUP_NAME );
+        NO_SELECT_IS_DEFAULT_GROUP.set( PropertiesProvider.DEFAULT_GROUP_NAME );
     }
 
     private static final List<SelectPropertiesSet>
@@ -25,13 +26,21 @@ public class PropertiesPluginContext
 
     private final MavenProject mavenProject;
 
-    private final Multimap<String, AbstractPropertiesProvider>
+    private final Multimap<String, PropertiesProvider>
                         groupedPropertiesProvidersMap =
-                                ArrayListMultimap.<String, AbstractPropertiesProvider> create();
+                                ArrayListMultimap.<String, PropertiesProvider> create();
 
-    public PropertiesPluginContext( MavenProject mavenProject )
+    private final AbstractMojo mojo;
+
+    public PropertiesPluginContext( MavenProject mavenProject, AbstractMojo mojo )
     {
         this.mavenProject = mavenProject;
+        this.mojo = mojo;
+    }
+
+    public AbstractMojo getMojo()
+    {
+        return mojo;
     }
 
     public MavenProject getMavenProject()
@@ -39,7 +48,7 @@ public class PropertiesPluginContext
         return mavenProject;
     }
 
-    public void addPropertiesProvider( AbstractPropertiesProvider propertiesProvider )
+    public void addPropertiesProvider( PropertiesProvider propertiesProvider )
     {
         groupedPropertiesProvidersMap.put( propertiesProvider.getGroupName(), propertiesProvider );
     }
@@ -50,7 +59,7 @@ public class PropertiesPluginContext
 
         for ( String groupName : groupsNames )
         {
-            for ( AbstractPropertiesProvider propertiesProvider : groupedPropertiesProvidersMap.get( groupName ) )
+            for ( PropertiesProvider propertiesProvider : groupedPropertiesProvidersMap.get( groupName ) )
             {
                 properties.putAll( propertiesProvider.getProperties() );
             }

@@ -7,7 +7,7 @@ import java.io.StringReader;
 import java.util.Properties;
 
 public class PropertiesEntries
-    extends AbstractPropertiesProvider
+    extends PropertiesProvider
 {
     private final Properties properties = new Properties();
 

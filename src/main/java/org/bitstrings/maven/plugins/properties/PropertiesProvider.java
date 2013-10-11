@@ -4,7 +4,10 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import java.util.Properties;
 
-public abstract class AbstractPropertiesProvider
+import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
+
+public abstract class PropertiesProvider
+    extends PropertiesOperation
 {
     public static final String DEFAULT_GROUP_NAME = "default";
 
@@ -25,6 +28,16 @@ public abstract class AbstractPropertiesProvider
     public Properties getProperties()
     {
         resolveProperties( properties );
+
+        if ( isVerbose() )
+        {
+            PropertiesHelper
+                    .logOperationProperties(
+                                getLog(),
+                                getOperationTag(),
+                                properties,
+                                "Group Name [" + groupName + "]" );
+        }
 
         return properties;
     }

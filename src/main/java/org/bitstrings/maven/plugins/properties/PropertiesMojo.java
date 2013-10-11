@@ -23,28 +23,31 @@ public class PropertiesMojo
     private boolean verbose;
 
     @Parameter( alias="define" )
-    private List<AbstractPropertiesProvider> propertiesProviders;
+    private List<PropertiesProvider> propertiesProviders;
 
     @Parameter( alias="sink" )
-    private List<AbstractPropertiesSink> propertiesSinks;
+    private List<PropertiesSink> propertiesSinks;
 
     @Override
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        PropertiesPluginContext context = new PropertiesPluginContext( mavenProject );
+        PropertiesPluginContext context = new PropertiesPluginContext( mavenProject, this );
 
-        for ( AbstractPropertiesProvider propertiesProvider : propertiesProviders  )
+        for ( PropertiesProvider propertiesProvider : propertiesProviders  )
         {
             context.addPropertiesProvider( propertiesProvider );
+            propertiesProvider.setContext( context );
+
             System.out.println( "--- [ define ] ---" );
             System.out.println( propertiesProvider );
         }
 
-        for ( AbstractPropertiesSink propertiesSink : propertiesSinks  )
+        for ( PropertiesSink propertiesSink : propertiesSinks  )
         {
             propertiesSink.setContext( context );
             propertiesSink.write();
+
             System.out.println( "--- [ sink ] ---" );
             System.out.println( propertiesSink );
         }

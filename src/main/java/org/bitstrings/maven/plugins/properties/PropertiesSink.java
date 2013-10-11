@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class AbstractPropertiesSink
+import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
+
+public abstract class PropertiesSink
+    extends PropertiesOperation
 {
     private PropertiesPluginContext context;
 
@@ -20,16 +23,6 @@ public abstract class AbstractPropertiesSink
         selectPropertiesSets.add( selectPropertiesSet );
     }
 
-    public void setContext( PropertiesPluginContext context )
-    {
-        this.context = context;
-    }
-
-    public PropertiesPluginContext getContext()
-    {
-        return context;
-    }
-
     public Properties getSelectedProperties()
     {
         return context.getProperties( selectPropertiesSets );
@@ -37,6 +30,13 @@ public abstract class AbstractPropertiesSink
 
     public void write()
     {
+        final Properties properties = getSelectedProperties();
+
+        if ( isVerbose() )
+        {
+            PropertiesHelper.logOperationProperties( getLog(), getOperationTag(), properties, null );
+        }
+
         writeProperties( getSelectedProperties() );
     }
 

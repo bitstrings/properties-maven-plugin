@@ -9,7 +9,7 @@ import java.util.Properties;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class ReadPropertiesFile
-    extends AbstractPropertiesProvider
+    extends PropertiesProvider
 {
     private File file;
 

@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.bitstrings.maven.plugins.properties.util.MapHelper;
 
 public class MavenPropertiesSetter
-    extends AbstractPropertiesSink
+    extends PropertiesSink
 {
     public static final String TARGET_PROJECT = "project";
     public static final String TARGET_SYSTEM = "system";
@@ -43,7 +43,7 @@ public class MavenPropertiesSetter
 
         if ( TARGET_PROJECT.equalsIgnoreCase( target ) )
         {
-            targetProperties = getContext().getMavenProject().getProperties();
+            targetProperties = getMavenProject().getProperties();
 
         }
         else if ( TARGET_SYSTEM.equalsIgnoreCase( target ) )

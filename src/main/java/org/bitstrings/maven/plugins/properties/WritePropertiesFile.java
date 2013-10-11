@@ -8,7 +8,7 @@ import org.bitstrings.maven.plugins.properties.util.MapHelper;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class WritePropertiesFile
-    extends AbstractPropertiesSink
+    extends PropertiesSink
 {
     public static final String MERGE_OVERRIDE = "override";
 

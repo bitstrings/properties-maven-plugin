@@ -14,7 +14,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+
+import org.apache.maven.plugin.logging.Log;
 
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
@@ -96,6 +100,45 @@ public final class PropertiesHelper
         finally
         {
             closer.close();
+        }
+    }
+
+    public static String propertyToString( Map.Entry<String, String> property )
+    {
+        return "[" + property.getKey() + "=" + property.getValue() + "]";
+    }
+
+    public static void logOperationProperties( Log log, String operationTag, Properties properties, String text )
+    {
+        final StringBuilder sb = new StringBuilder();
+
+        sb.append( "-[" );
+        sb.append( operationTag );
+        sb.append( "] " );
+
+        if ( text != null )
+        {
+            sb.append( text );
+            sb.append( ' ' );
+        }
+
+        sb.append( "--" );
+
+        log.info( sb.toString() );
+
+        final Set<Map.Entry<String, String>> entrySet =
+                            (Set<Map.Entry<String, String>>) (Set<?>) properties.entrySet();
+
+        if ( entrySet.isEmpty() )
+        {
+            log.info( " --> {NO PROPERTIES}" );
+        }
+        else
+        {
+            for ( Map.Entry<String, String> property : entrySet )
+            {
+                log.info( " --> " + PropertiesHelper.propertyToString( property ) );
+            }
         }
     }
 }
