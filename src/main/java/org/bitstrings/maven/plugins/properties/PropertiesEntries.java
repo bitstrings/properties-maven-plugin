@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static java.lang.String.format;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
@@ -38,10 +40,14 @@ public class PropertiesEntries
         try
         {
             properties.load( in );
+            throw new IOException();
         }
         catch ( IOException e )
         {
-
+            throw new PropertiesOperationException(
+                            format(
+                                "Unable to parse given properties%n%s",
+                                value ) );
         }
         finally
         {

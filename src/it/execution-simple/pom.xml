@@ -57,7 +57,9 @@ limitations under the License.
                                         <name>A2</name>
                                         <value>V2</value>
                                     </property>
-                                    <verbose>true</verbose>
+                                </propertiesEntries>
+                                <propertiesEntries>
+                                    a = b
                                 </propertiesEntries>
                                 <readPropertiesFile>@basedir@/src/it/resources/test.properties</readPropertiesFile>
                             </define>

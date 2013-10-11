@@ -36,14 +36,32 @@ public class PropertiesMojo
 
         for ( PropertiesProvider propertiesProvider : propertiesProviders  )
         {
-            context.addPropertiesProvider( propertiesProvider );
-            propertiesProvider.setContext( context );
+            try
+            {
+                context.addPropertiesProvider( propertiesProvider );
+                propertiesProvider.setContext( context );
+            }
+            catch ( PropertiesOperationException e )
+            {
+                throw new MojoExecutionException(
+                            "Define properties error [" + propertiesProvider.getClass().getSimpleName() + "]",
+                            e );
+            }
         }
 
         for ( PropertiesSink propertiesSink : propertiesSinks  )
         {
-            propertiesSink.setContext( context );
-            propertiesSink.write();
+            try
+            {
+                propertiesSink.setContext( context );
+                propertiesSink.write();
+            }
+            catch ( PropertiesOperationException e )
+            {
+                throw new MojoExecutionException(
+                            "Properties sink error [" + propertiesSink.getClass().getSimpleName() + "]",
+                            e );
+            }
         }
 
         System.out.println( mavenProject.getProperties() );

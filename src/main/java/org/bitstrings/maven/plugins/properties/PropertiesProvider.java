@@ -22,6 +22,7 @@ public abstract class PropertiesProvider
     }
 
     public Properties getProperties()
+        throws PropertiesOperationException
     {
         if ( properties == null )
         {
@@ -33,5 +34,6 @@ public abstract class PropertiesProvider
         return properties;
     }
 
-    protected abstract void resolveProperties( Properties properties );
+    protected abstract void resolveProperties( Properties properties )
+        throws PropertiesOperationException;
 }

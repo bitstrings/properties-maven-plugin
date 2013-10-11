@@ -25,11 +25,13 @@ public abstract class PropertiesSink
     }
 
     public void write()
+        throws PropertiesOperationException
     {
         final Properties properties = getSelectedProperties();
 
         writeProperties( properties );
     }
 
-    protected abstract void writeProperties( Properties properties );
+    protected abstract void writeProperties( Properties properties )
+        throws PropertiesOperationException;
 }

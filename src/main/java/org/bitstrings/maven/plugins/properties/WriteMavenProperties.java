@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static java.lang.String.format;
+
 import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.MapHelper;
@@ -34,8 +36,14 @@ public class WriteMavenProperties
         this.target = target;
     }
 
+    public void set( String target )
+    {
+        setTarget( target );
+    }
+
     @Override
     protected void writeProperties( Properties properties )
+        throws PropertiesOperationException
     {
         Properties targetProperties;
 
@@ -50,7 +58,8 @@ public class WriteMavenProperties
         }
         else
         {
-            throw new IllegalStateException( "Unknow target: " + target );
+            throw new PropertiesOperationException(
+                            format( "Invalid target '%s'", target ) );
         }
 
         if ( override )
