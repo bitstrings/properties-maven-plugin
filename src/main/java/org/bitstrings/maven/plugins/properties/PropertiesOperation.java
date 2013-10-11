@@ -1,7 +1,6 @@
 package org.bitstrings.maven.plugins.properties;
 
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 public class PropertiesOperation
@@ -11,9 +10,6 @@ public class PropertiesOperation
     private Log log;
 
     private String operationTag = this.getClass().getSimpleName();
-
-    @Parameter
-    private boolean verbose = false;
 
     public PropertiesPluginContext getContext()
     {
@@ -45,15 +41,5 @@ public class PropertiesOperation
     public Log getLog()
     {
         return log;
-    }
-
-    public boolean isVerbose()
-    {
-        return verbose;
-    }
-
-    public void setVerbose( boolean verbose )
-    {
-        this.verbose = verbose;
     }
 }

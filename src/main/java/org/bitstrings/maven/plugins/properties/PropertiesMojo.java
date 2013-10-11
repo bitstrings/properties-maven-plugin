@@ -38,18 +38,12 @@ public class PropertiesMojo
         {
             context.addPropertiesProvider( propertiesProvider );
             propertiesProvider.setContext( context );
-
-            System.out.println( "--- [ define ] ---" );
-            System.out.println( propertiesProvider );
         }
 
         for ( PropertiesSink propertiesSink : propertiesSinks  )
         {
             propertiesSink.setContext( context );
             propertiesSink.write();
-
-            System.out.println( "--- [ sink ] ---" );
-            System.out.println( propertiesSink );
         }
 
         System.out.println( mavenProject.getProperties() );
