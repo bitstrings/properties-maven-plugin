@@ -10,7 +10,7 @@ public class PropertiesOperation
 
     private Log log;
 
-    private String operationTag;
+    private String operationTag = this.getClass().getSimpleName();
 
     @Parameter
     private boolean verbose = false;
