@@ -57,11 +57,12 @@ limitations under the License.
                                         <name>A2</name>
                                         <value>V2</value>
                                     </property>
+                                    <verbose>true</verbose>
                                 </propertiesEntries>
                                 <readPropertiesFile>@basedir@/src/it/resources/test.properties</readPropertiesFile>
                             </define>
                             <sink>
-                                <mavenPropertiesSetter/>
+                                <writeMavenProperties/>
                                 <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</writePropertiesFile>
                                 <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</writePropertiesFile>
                             </sink>

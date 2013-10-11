@@ -1,7 +1,5 @@
 package org.bitstrings.maven.plugins.properties;
 
-import static com.google.common.base.Objects.toStringHelper;
-
 import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.MapHelper;
@@ -63,15 +61,5 @@ public class WriteMavenProperties
         {
             MapHelper.putAllIfAbsent( properties, targetProperties );
         }
-    }
-
-    @Override
-    public String toString()
-    {
-        return
-                toStringHelper( this )
-                .add( "target" , target )
-                .add( "override", override )
-                .toString();
     }
 }

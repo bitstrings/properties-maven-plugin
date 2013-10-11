@@ -1,10 +1,6 @@
 package org.bitstrings.maven.plugins.properties;
 
-import static com.google.common.base.Objects.toStringHelper;
-
 import java.util.Properties;
-
-import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public abstract class PropertiesProvider
     extends PropertiesOperation
@@ -13,7 +9,7 @@ public abstract class PropertiesProvider
 
     private String groupName = DEFAULT_GROUP_NAME;
 
-    private final Properties properties = new Properties();
+    private Properties properties;
 
     public String getGroupName()
     {
@@ -27,30 +23,15 @@ public abstract class PropertiesProvider
 
     public Properties getProperties()
     {
-        resolveProperties( properties );
-
-        if ( isVerbose() )
+        if ( properties == null )
         {
-            PropertiesHelper
-                    .logOperationProperties(
-                                getLog(),
-                                getOperationTag(),
-                                properties,
-                                "Group Name [" + groupName + "]" );
+            properties = new Properties();
+
+            resolveProperties( properties );
         }
 
         return properties;
     }
 
     protected abstract void resolveProperties( Properties properties );
-
-    @Override
-    public String toString()
-    {
-        return
-                toStringHelper( this )
-                .add( "groupName", groupName )
-                .add( "properties", properties )
-                .toString();
-    }
 }

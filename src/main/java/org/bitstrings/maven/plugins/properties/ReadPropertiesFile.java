@@ -1,7 +1,5 @@
 package org.bitstrings.maven.plugins.properties;
 
-import static com.google.common.base.Objects.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
@@ -62,17 +60,5 @@ public class ReadPropertiesFile
         catch ( IOException e )
         {
         }
-    }
-
-    @Override
-    public String toString()
-    {
-        return
-                toStringHelper( this )
-                .add( "file", file )
-                .add( "xmlFormat", xmlFormat )
-                .add( "ignoreMissing", ignoreMissingFile )
-                .addValue( super.toString() )
-                .toString();
     }
 }
