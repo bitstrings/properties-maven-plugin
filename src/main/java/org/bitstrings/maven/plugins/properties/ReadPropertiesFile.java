@@ -52,6 +52,7 @@ public class ReadPropertiesFile
 
     @Override
     protected void resolveProperties( Properties properties )
+        throws PropertiesOperationException
     {
         try
         {
@@ -59,6 +60,7 @@ public class ReadPropertiesFile
         }
         catch ( IOException e )
         {
+            throw new PropertiesOperationException( e );
         }
     }
 }

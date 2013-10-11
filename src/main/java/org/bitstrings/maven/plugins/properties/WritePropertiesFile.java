@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static java.lang.String.format;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
@@ -73,6 +75,7 @@ public class WritePropertiesFile
 
     @Override
     protected void writeProperties( Properties properties )
+        throws PropertiesOperationException
     {
         Properties targetProperties;
 
@@ -101,7 +104,8 @@ public class WritePropertiesFile
                 }
                 else
                 {
-
+                    throw new PropertiesOperationException(
+                                    format( "Unknown merge scheme '%s'.", mergeScheme ) );
                 }
             }
 
@@ -109,7 +113,7 @@ public class WritePropertiesFile
         }
         catch ( IOException e )
         {
-            e.printStackTrace();
+            throw new PropertiesOperationException( e );
         }
     }
 }

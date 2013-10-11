@@ -46,7 +46,7 @@ public class PropertiesEntries
         {
             throw new PropertiesOperationException(
                             format(
-                                "Unable to parse given properties%n%s",
+                                "Unable to parse given properties:%n%s",
                                 value ) );
         }
         finally

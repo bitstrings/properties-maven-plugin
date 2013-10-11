@@ -59,7 +59,7 @@ public class WriteMavenProperties
         else
         {
             throw new PropertiesOperationException(
-                            format( "Invalid target '%s'", target ) );
+                            format( "Unknown target '%s'.", target ) );
         }
 
         if ( override )

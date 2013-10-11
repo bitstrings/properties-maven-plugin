@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import static java.lang.String.format;
+
 import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
@@ -36,6 +38,7 @@ public class MavenProperties
 
     @Override
     protected void resolveProperties( Properties properties )
+        throws PropertiesOperationException
     {
         Properties targetProperties;
 
@@ -50,7 +53,8 @@ public class MavenProperties
         }
         else
         {
-            throw new IllegalStateException( "Unknow source: " + source );
+            throw new PropertiesOperationException(
+                            format( "Unknown source '%s'.", source ) );
         }
 
         PropertiesHelper.filter( selectSet, targetProperties, properties );
