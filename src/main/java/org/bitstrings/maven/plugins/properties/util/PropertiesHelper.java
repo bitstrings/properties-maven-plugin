@@ -14,11 +14,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.plugin.logging.Log;
+import org.bitstrings.maven.plugins.properties.SelectSet;
 
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
@@ -140,5 +142,45 @@ public final class PropertiesHelper
                 log.info( " --> " + PropertiesHelper.propertyToString( property ) );
             }
         }
+    }
+
+    public static void filter( SelectSet selectSet, Properties source, Properties target )
+    {
+        for ( Map.Entry<String, String> elem : (Set<Map.Entry<String, String>>) (Set<?>) source.entrySet() )
+        {
+            for ( String include : selectSet.getIncludes() )
+            {
+                if ( elem.getKey().matches( include ) )
+                {
+                    target.put( elem.getKey(), elem.getValue() );
+
+                    break;
+                }
+            }
+        }
+
+        for ( Iterator<String> resultIter = (Iterator) target.keySet().iterator(); resultIter.hasNext(); )
+        {
+            String groupName = resultIter.next();
+
+            for ( String exclude : selectSet.getExcludes() )
+            {
+                if ( groupName.matches( exclude ) )
+                {
+                    resultIter.remove();
+
+                    break;
+                }
+            }
+        }
+    }
+
+    public static Properties filter( SelectSet selectSet, Properties source )
+    {
+        final Properties target = new Properties();
+
+        filter( selectSet, source, target );
+
+        return target;
     }
 }
