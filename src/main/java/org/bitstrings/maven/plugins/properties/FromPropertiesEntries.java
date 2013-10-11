@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
 
-public class PropertiesEntries
+public class FromPropertiesEntries
     extends PropertiesProvider
 {
     private final Properties properties = new Properties();
@@ -40,7 +40,6 @@ public class PropertiesEntries
         try
         {
             properties.load( in );
-            throw new IOException();
         }
         catch ( IOException e )
         {

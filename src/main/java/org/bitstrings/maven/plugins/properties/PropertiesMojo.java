@@ -25,8 +25,8 @@ public class PropertiesMojo
     @Parameter( alias="define" )
     private List<PropertiesProvider> propertiesProviders;
 
-    @Parameter( alias="sink" )
-    private List<PropertiesSink> propertiesSinks;
+    @Parameter( alias="write" )
+    private List<PropertiesWriter> propertiesSinks;
 
     @Override
     public void execute()
@@ -49,7 +49,7 @@ public class PropertiesMojo
             }
         }
 
-        for ( PropertiesSink propertiesSink : propertiesSinks  )
+        for ( PropertiesWriter propertiesSink : propertiesSinks  )
         {
             try
             {
@@ -59,7 +59,7 @@ public class PropertiesMojo
             catch ( PropertiesOperationException e )
             {
                 throw new MojoExecutionException(
-                            "Properties sink error [" + propertiesSink.getClass().getSimpleName() + "]",
+                            "Properties write error [" + propertiesSink.getClass().getSimpleName() + "]",
                             e );
             }
         }

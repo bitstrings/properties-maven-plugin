@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.MapHelper;
 
-public class WriteMavenProperties
-    extends PropertiesSink
+public class ToMavenProperties
+    extends PropertiesWriter
 {
     public static final String TARGET_PROJECT = "project";
     public static final String TARGET_SYSTEM = "system";

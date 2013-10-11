@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
-public class MavenProperties
+public class FromMavenProperties
     extends PropertiesProvider
 {
     public static final String SOURCE_PROJECT = "project";

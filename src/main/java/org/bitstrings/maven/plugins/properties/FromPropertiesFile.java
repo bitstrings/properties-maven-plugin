@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
-public class ReadPropertiesFile
+public class FromPropertiesFile
     extends PropertiesProvider
 {
     private File file;

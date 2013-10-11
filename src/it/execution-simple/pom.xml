@@ -48,7 +48,7 @@ limitations under the License.
                         <configuration>
 
                             <define>
-                                <propertiesEntries>
+                                <fromPropertiesEntries>
                                     <property>
                                         <name>A1</name>
                                         <value>V1</value>
@@ -57,17 +57,17 @@ limitations under the License.
                                         <name>A2</name>
                                         <value>V2</value>
                                     </property>
-                                </propertiesEntries>
-                                <propertiesEntries>
+                                </fromPropertiesEntries>
+                                <fromPropertiesEntries>
                                     a = b
-                                </propertiesEntries>
-                                <readPropertiesFile>@basedir@/src/it/resources/test.properties</readPropertiesFile>
+                                </fromPropertiesEntries>
+                                <fromPropertiesFile>@basedir@/src/it/resources/test.properties</fromPropertiesFile>
                             </define>
-                            <sink>
-                                <writeMavenProperties/>
-                                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</writePropertiesFile>
-                                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</writePropertiesFile>
-                            </sink>
+                            <write>
+                                <toMavenProperties/>
+                                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
+                                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
+                            </write>
 
                         </configuration>
                     </execution>

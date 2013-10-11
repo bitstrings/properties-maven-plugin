@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class PropertiesSink
+public abstract class PropertiesWriter
     extends PropertiesOperation
 {
     private List<SelectPropertiesSet> selectPropertiesSets = new ArrayList<SelectPropertiesSet>();
