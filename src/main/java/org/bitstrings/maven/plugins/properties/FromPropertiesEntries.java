@@ -55,8 +55,8 @@ public class FromPropertiesEntries
     }
 
     @Override
-    protected void resolveProperties( Properties properties )
+    protected Properties resolveProperties()
     {
-        properties.putAll( this.properties );
+        return properties;
     }
 }

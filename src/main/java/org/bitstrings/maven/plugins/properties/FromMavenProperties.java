@@ -37,19 +37,21 @@ public class FromMavenProperties
     }
 
     @Override
-    protected void resolveProperties( Properties properties )
+    protected Properties resolveProperties()
         throws PropertiesOperationException
     {
-        Properties targetProperties;
+        Properties targetProperties = new Properties();
+
+        Properties sourceProperties;
 
         if ( SOURCE_PROJECT.equalsIgnoreCase( source ) )
         {
-            targetProperties = getMavenProject().getProperties();
+            sourceProperties = getMavenProject().getProperties();
 
         }
         else if ( SOURCE_PROJECT.equalsIgnoreCase( source ) )
         {
-            targetProperties = System.getProperties();
+            sourceProperties = System.getProperties();
         }
         else
         {
@@ -57,6 +59,8 @@ public class FromMavenProperties
                             format( "Unknown source '%s'.", source ) );
         }
 
-        PropertiesHelper.filter( selectSet, targetProperties, properties );
+        PropertiesHelper.filter( selectSet, sourceProperties, targetProperties );
+
+        return targetProperties;
     }
 }

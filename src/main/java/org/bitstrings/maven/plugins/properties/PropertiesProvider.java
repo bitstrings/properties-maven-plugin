@@ -26,14 +26,12 @@ public abstract class PropertiesProvider
     {
         if ( properties == null )
         {
-            properties = new Properties();
-
-            resolveProperties( properties );
+            properties = resolveProperties();
         }
 
         return properties;
     }
 
-    protected abstract void resolveProperties( Properties properties )
+    protected abstract Properties resolveProperties()
         throws PropertiesOperationException;
 }

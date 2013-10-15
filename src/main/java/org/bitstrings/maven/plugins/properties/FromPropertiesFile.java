@@ -51,12 +51,12 @@ public class FromPropertiesFile
     }
 
     @Override
-    protected void resolveProperties( Properties properties )
+    protected Properties resolveProperties()
         throws PropertiesOperationException
     {
         try
         {
-            PropertiesHelper.loadProperties( file, xmlFormat );
+            return PropertiesHelper.loadProperties( file, xmlFormat );
         }
         catch ( IOException e )
         {

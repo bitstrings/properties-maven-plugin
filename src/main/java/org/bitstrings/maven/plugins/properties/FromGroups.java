@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class PropertiesWriter
-    extends PropertiesOperation
+public class FromGroups
+    extends PropertiesProvider
 {
-    private List<SelectPropertiesSet> propertiesSets = new ArrayList<SelectPropertiesSet>();
+    private final List<SelectPropertiesSet> propertiesSets = new ArrayList<SelectPropertiesSet>();
 
     public List<SelectPropertiesSet> getPropertiesSets()
     {
@@ -24,14 +24,9 @@ public abstract class PropertiesWriter
         return getContext().getProperties( propertiesSets );
     }
 
-    public void write()
-        throws PropertiesOperationException
+    @Override
+    protected Properties resolveProperties()
     {
-        final Properties properties = getSelectedProperties();
-
-        writeProperties( properties );
+        return getSelectedProperties();
     }
-
-    protected abstract void writeProperties( Properties properties )
-        throws PropertiesOperationException;
 }
