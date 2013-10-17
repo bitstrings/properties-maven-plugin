@@ -9,31 +9,11 @@ import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
 
 public class PropertiesTransformers
 {
-    public static class ValueTransformers
-    {
-        private final List<ValueTransformer> transformers = new ArrayList<ValueTransformer>();
-
-        public void addValueTransformer( ValueTransformer transformer )
-        {
-            transformers.add( transformer );
-        }
-
-        public String transform( String value )
-        {
-            for ( ValueTransformer transformer : transformers )
-            {
-                value = transformer.transform( value );
-            }
-
-            return value;
-        }
-    }
-
     private SetSelector propertySet = new SetSelector();
 
-    private final List<ValueTransformers> forKeys = new ArrayList<ValueTransformers>();
+    private final List<ValueTransformer> forKeys = new ArrayList<ValueTransformer>();
 
-    private final List<ValueTransformers> forValues = new ArrayList<ValueTransformers>();
+    private final List<ValueTransformer> forValues = new ArrayList<ValueTransformer>();
 
     public SetSelector getPropertySet()
     {
@@ -45,12 +25,12 @@ public class PropertiesTransformers
         this.propertySet = propertySet;
     }
 
-    public List<ValueTransformers> getForKeys()
+    public List<ValueTransformer> getForKeys()
     {
         return forKeys;
     }
 
-    public List<ValueTransformers> getForValues()
+    public List<ValueTransformer> getForValues()
     {
         return forValues;
     }
@@ -66,14 +46,14 @@ public class PropertiesTransformers
         {
             String propertyValue = properties.getProperty( propertyName );
 
-            for ( ValueTransformers transformers : forKeys )
+            for ( ValueTransformer transformer : forKeys )
             {
-                propertyName = transformers.transform( propertyName );
+                propertyName = transformer.transform( propertyName );
             }
 
-            for ( ValueTransformers transformers : forValues )
+            for ( ValueTransformer transformer : forValues )
             {
-                propertyValue = transformers.transform( propertyValue );
+                propertyValue = transformer.transform( propertyValue );
             }
 
             transformedProperties.setProperty( propertyName, propertyValue );

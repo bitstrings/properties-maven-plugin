@@ -67,8 +67,8 @@ limitations under the License.
                                     <transformers>
                                         <forKeys>
                                             <regExReplacer>
-                                                <match>(.*)</match>
-                                                <replacement>YEAH!!!$1</replacement>
+                                                <match>(.+)</match>
+                                                <replacement>YY_$1</replacement>
                                             </regExReplacer>
                                         </forKeys>
                                     </transformers>

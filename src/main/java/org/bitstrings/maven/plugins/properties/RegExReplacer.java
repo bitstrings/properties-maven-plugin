@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import java.util.regex.Pattern;
+
 public class RegExReplacer
     implements ValueTransformer
 {
@@ -7,14 +9,23 @@ public class RegExReplacer
 
     private String replacement;
 
+    private boolean caseInsensitive = false;
+
     private boolean replaceAll = true;
 
     @Override
     public String transform( String value )
     {
+        final Pattern pattern =
+                        Pattern.compile(
+                                    match,
+                                    caseInsensitive
+                                            ? Pattern.CASE_INSENSITIVE
+                                            : 0 );
+
         return
                 replaceAll
-                    ? value.replaceAll( match, replacement )
-                    : value.replaceFirst( match, replacement );
+                    ? pattern.matcher( value  ).replaceAll( replacement )
+                    : pattern.matcher( value  ).replaceFirst( replacement );
     }
 }
