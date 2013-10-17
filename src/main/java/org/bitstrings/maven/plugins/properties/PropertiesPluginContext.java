@@ -4,27 +4,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
-import org.bitstrings.maven.plugins.properties.util.SelectSetHelper;
+import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
+import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 public class PropertiesPluginContext
 {
-    private static final SelectSet NO_SELECT_IS_DEFAULT_GROUP = new SelectSet();
+    private static final SetSelector NO_SELECT_IS_DEFAULT_GROUP = new SetSelector();
 
     static
     {
         NO_SELECT_IS_DEFAULT_GROUP.set( PropertiesProvider.DEFAULT_GROUP_NAME );
     }
 
-    private static final List<SelectPropertiesSet>
+    private static final List<PropertiesSelector>
                     NO_SELECT_LIST_IS_ALL =
-                                    Collections.singletonList( new SelectPropertiesSet() );
+                                    Collections.singletonList( new PropertiesSelector() );
 
-    private final MavenProject mavenProject;
+    private final MavenSession mavenSession;
 
     private final Multimap<String, PropertiesProvider>
                         groupedPropertiesProvidersMap =
@@ -32,9 +35,9 @@ public class PropertiesPluginContext
 
     private final AbstractMojo mojo;
 
-    public PropertiesPluginContext( MavenProject mavenProject, AbstractMojo mojo )
+    public PropertiesPluginContext( MavenSession mavenSession, AbstractMojo mojo )
     {
-        this.mavenProject = mavenProject;
+        this.mavenSession = mavenSession;
         this.mojo = mojo;
     }
 
@@ -43,9 +46,14 @@ public class PropertiesPluginContext
         return mojo;
     }
 
+    public MavenSession getMavenSession()
+    {
+        return mavenSession;
+    }
+
     public MavenProject getMavenProject()
     {
-        return mavenProject;
+        return mavenSession.getCurrentProject();
     }
 
     public void addPropertiesProvider( PropertiesProvider propertiesProvider )
@@ -68,9 +76,9 @@ public class PropertiesPluginContext
         return properties;
     }
 
-    public Properties getProperties( SelectPropertiesSet selectPropertiesSet )
+    public Properties getProperties( PropertiesSelector selectPropertiesSet )
     {
-        SelectSet groupSet = selectPropertiesSet.getSelectGroups();
+        SetSelector groupSet = selectPropertiesSet.getGroupSet();
 
         if ( groupSet == null )
         {
@@ -78,18 +86,18 @@ public class PropertiesPluginContext
         }
 
         final List<String> selectedGroups =
-                    SelectSetHelper.filter(
+                    SetSelectorHelper.regExfilter(
                         groupSet,
                         groupedPropertiesProvidersMap.keySet() );
 
         final Properties properties = getUnifiedProperties( selectedGroups );
 
-        SelectSet propertiesSet = selectPropertiesSet.getSelectProperties();
+        final SetSelector propertiesSet = selectPropertiesSet.getPropertySet();
 
         if ( propertiesSet != null )
         {
             final List<String> selectedProperties =
-                        SelectSetHelper.filter(
+                        SetSelectorHelper.regExfilter(
                             propertiesSet,
                             properties.stringPropertyNames() );
 
@@ -99,7 +107,7 @@ public class PropertiesPluginContext
         return properties;
     }
 
-    public Properties getProperties( List<SelectPropertiesSet> selectPropertiesSets )
+    public Properties getProperties( List<PropertiesSelector> selectPropertiesSets )
     {
         final Properties properties = new Properties();
 
@@ -108,7 +116,7 @@ public class PropertiesPluginContext
             selectPropertiesSets = NO_SELECT_LIST_IS_ALL;
         }
 
-        for ( SelectPropertiesSet selectPropertiesSet : selectPropertiesSets )
+        for ( PropertiesSelector selectPropertiesSet : selectPropertiesSets )
         {
             properties.putAll( getProperties( selectPropertiesSet ) );
         }

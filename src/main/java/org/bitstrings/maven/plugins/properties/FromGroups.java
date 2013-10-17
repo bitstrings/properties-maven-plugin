@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
+
 public class FromGroups
     extends PropertiesProvider
 {
-    private final List<SelectPropertiesSet> propertiesSets = new ArrayList<SelectPropertiesSet>();
+    private final List<PropertiesSelector> propertiesSets = new ArrayList<PropertiesSelector>();
 
-    public List<SelectPropertiesSet> getPropertiesSets()
+    public List<PropertiesSelector> getPropertiesSets()
     {
         return propertiesSets;
     }
 
-    public void addPropertiesSet( SelectPropertiesSet propertiesSet )
+    public void addPropertiesSet( PropertiesSelector propertiesSet )
     {
         propertiesSets.add( propertiesSet );
     }

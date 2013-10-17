@@ -42,6 +42,7 @@ limitations under the License.
                 <executions>
                     <execution>
                         <id>exec</id>
+                        <phase>compile</phase>
                         <goals>
                             <goal>properties</goal>
                         </goals>

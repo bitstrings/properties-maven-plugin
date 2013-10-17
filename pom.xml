@@ -164,6 +164,11 @@
             <artifactId>guava</artifactId>
             <version>15.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
     </dependencies>
 
     <reporting>
@@ -222,7 +227,7 @@
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                    <debug>false</debug>
+                                    <debug>true</debug>
                                     <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                                     <preBuildHookScript>setup</preBuildHookScript>
                                     <postBuildHookScript>verify.bsh</postBuildHookScript>

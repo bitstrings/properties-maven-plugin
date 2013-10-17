@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class FromMavenProperties
@@ -14,7 +15,7 @@ public class FromMavenProperties
 
     private String source = SOURCE_PROJECT;
 
-    private SelectSet selectSet = new SelectSet();
+    private SetSelector selectSet = new SetSelector();
 
     public String getSource()
     {
@@ -26,12 +27,12 @@ public class FromMavenProperties
         this.source = source;
     }
 
-    public SelectSet getSelectSet()
+    public SetSelector getSelectSet()
     {
         return selectSet;
     }
 
-    public void setSelectSet( SelectSet selectSet )
+    public void setSelectSet( SetSelector selectSet )
     {
         this.selectSet = selectSet;
     }
@@ -40,8 +41,6 @@ public class FromMavenProperties
     protected Properties resolveProperties()
         throws PropertiesOperationException
     {
-        Properties targetProperties = new Properties();
-
         Properties sourceProperties;
 
         if ( SOURCE_PROJECT.equalsIgnoreCase( source ) )
@@ -59,8 +58,6 @@ public class FromMavenProperties
                             format( "Unknown source '%s'.", source ) );
         }
 
-        PropertiesHelper.filter( selectSet, sourceProperties, targetProperties );
-
-        return targetProperties;
+        return PropertiesHelper.regExFilter( selectSet, sourceProperties );
     }
 }

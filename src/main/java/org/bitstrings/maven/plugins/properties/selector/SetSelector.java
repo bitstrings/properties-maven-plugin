@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.selector;
 
 import static com.google.common.base.Objects.firstNonNull;
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.google.common.base.Splitter;
 
-public class SelectSet
+public class SetSelector
 {
     private List<String> includes;
 

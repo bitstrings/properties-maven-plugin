@@ -4,6 +4,7 @@ import static org.apache.maven.plugins.annotations.LifecyclePhase.INITIALIZE;
 
 import java.util.List;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -19,6 +20,9 @@ public class PropertiesMojo
     @Component
     private MavenProject mavenProject;
 
+    @Component
+    private MavenSession mavenSession;
+
     @Parameter( defaultValue = "false" )
     private boolean verbose;
 
@@ -32,7 +36,7 @@ public class PropertiesMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        PropertiesPluginContext context = new PropertiesPluginContext( mavenProject, this );
+        PropertiesPluginContext context = new PropertiesPluginContext( mavenSession, this );
 
         for ( PropertiesProvider propertiesProvider : propertiesProviders  )
         {

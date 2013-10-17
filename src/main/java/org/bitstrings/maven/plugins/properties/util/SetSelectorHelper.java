@@ -5,13 +5,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bitstrings.maven.plugins.properties.SelectSet;
+import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 
-public final class SelectSetHelper
+import com.google.common.base.Splitter;
+
+public final class SetSelectorHelper
 {
-    private SelectSetHelper() {}
+    private SetSelectorHelper() {}
 
-    public static List<String> filter( SelectSet selectSet, Collection<String> source )
+    public static List<String> regExfilter( SetSelector selectSet, Collection<String> source )
     {
         final List<String> result = new LinkedList<String>();
 
@@ -44,5 +46,27 @@ public final class SelectSetHelper
         }
 
         return result;
+    }
+
+    public static boolean matchWildcard( String expression, String source )
+    {
+        boolean firstIsFixed = ( '*' != expression.charAt( 0 ) );
+
+        for (
+                String part
+                    : Splitter.on( '*' )
+                            .omitEmptyStrings()
+                            .trimResults()
+                            .split( expression ) )
+        {
+            int index = source.indexOf( part );
+
+            if ( index == -1 || ( firstIsFixed && index > 0 ) )
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

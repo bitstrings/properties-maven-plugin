@@ -35,7 +35,7 @@ public class FromPropertiesEntries
 
     public void set( String value )
     {
-        StringReader in = new StringReader( value );
+        final StringReader in = new StringReader( value );
 
         try
         {

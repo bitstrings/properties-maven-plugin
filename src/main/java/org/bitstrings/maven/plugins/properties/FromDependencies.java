@@ -1,25 +1,39 @@
 package org.bitstrings.maven.plugins.properties;
 
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.project.MavenProject;
+import org.bitstrings.maven.plugins.properties.selector.DependencySetSelector;
 
 public class FromDependencies
     extends PropertiesProvider
 {
-    private SelectSet dependencySet;
+    private List<DependencySetSelector> dependencySets;
 
-    public SelectSet getDependencySet()
+    public List<DependencySetSelector> getDependencySets()
     {
-        return dependencySet;
+        return dependencySets;
     }
 
-    public void setDependencySet( SelectSet dependencySet )
+    public void setDependencySets( List<DependencySetSelector> dependencySets )
     {
-        this.dependencySet = dependencySet;
+        this.dependencySets = dependencySets;
     }
 
     @Override
     protected Properties resolveProperties()
     {
-        return null;
+        final Properties properties = new Properties();
+
+        final MavenProject project = getContext().getMavenProject();
+
+        final Set<Artifact> artifacts = project.getArtifacts();
+
+
+        return properties;
     }
+
 }
