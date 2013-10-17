@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 
@@ -17,30 +18,42 @@ public final class SetSelectorHelper
     {
         final List<String> result = new LinkedList<String>();
 
-        for ( String elem : source )
+        if ( ( selectSet.getIncludes() == null ) || selectSet.getIncludes().isEmpty() )
+        {
+            result.addAll( source );
+        }
+        else
         {
             for ( String include : selectSet.getIncludes() )
             {
-                if ( elem.matches( include ) )
-                {
-                    result.add( elem );
+                final Pattern pattern = Pattern.compile( include );
 
-                    break;
+                for ( String elem : source )
+                {
+                    if ( pattern.matcher( elem ).matches() )
+                    {
+                        result.add( elem );
+
+                        break;
+                    }
                 }
             }
         }
 
-        for ( Iterator<String> resultIter = result.listIterator(); resultIter.hasNext(); )
+        if ( selectSet.getExcludes() != null )
         {
-            String groupName = resultIter.next();
-
             for ( String exclude : selectSet.getExcludes() )
             {
-                if ( groupName.matches( exclude ) )
-                {
-                    resultIter.remove();
+                final Pattern pattern = Pattern.compile( exclude );
 
-                    break;
+                for ( Iterator<String> resultIter = result.listIterator(); resultIter.hasNext(); )
+                {
+                    if ( pattern.matcher( resultIter.next() ).matches() )
+                    {
+                        resultIter.remove();
+
+                        break;
+                    }
                 }
             }
         }

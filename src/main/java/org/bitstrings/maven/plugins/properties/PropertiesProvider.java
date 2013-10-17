@@ -27,6 +27,8 @@ public abstract class PropertiesProvider
         if ( properties == null )
         {
             properties = resolveProperties();
+
+            transform( properties );
         }
 
         return properties;

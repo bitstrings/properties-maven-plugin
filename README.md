@@ -25,7 +25,19 @@ properties-maven-plugin
                 <fromPropertiesEntries>
                     a = b
                 </fromPropertiesEntries>
-                <fromPropertiesFile>@basedir@/src/it/resources/test.properties</fromPropertiesFile>
+                <fromPropertiesFile>
+                    <file>@basedir@/src/it/resources/test.properties</file>
+                    <transforms>
+                        <trasform>
+                            <keys>
+                                <regExReplacer>
+                                    <match></match>
+                                    <replace></replace>
+                                </regExReplacer>
+                            </keys>
+                        </transform>
+                    </transforms>
+                </fromPropertiesFile>
             </define>
             <write>
                 <toMavenProperties/>

@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.properties;
 
+import java.util.Properties;
+
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
@@ -10,6 +12,8 @@ public class PropertiesOperation
     private Log log;
 
     private String operationTag = this.getClass().getSimpleName();
+
+    private PropertiesTransformers transformers;
 
     public PropertiesPluginContext getContext()
     {
@@ -36,6 +40,21 @@ public class PropertiesOperation
     public void setOperationTag( String operationTag )
     {
         this.operationTag = operationTag;
+    }
+
+    public PropertiesTransformers getTransformers()
+    {
+        return transformers;
+    }
+
+    public void transform( Properties properties )
+    {
+        if ( transformers == null )
+        {
+            return;
+        }
+
+        transformers.transform( properties );
     }
 
     public Log getLog()

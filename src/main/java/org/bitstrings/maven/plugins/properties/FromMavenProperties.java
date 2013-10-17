@@ -15,7 +15,7 @@ public class FromMavenProperties
 
     private String source = SOURCE_PROJECT;
 
-    private SetSelector selectSet = new SetSelector();
+    private SetSelector propertySet = new SetSelector();
 
     public String getSource()
     {
@@ -27,14 +27,14 @@ public class FromMavenProperties
         this.source = source;
     }
 
-    public SetSelector getSelectSet()
+    public SetSelector getPropertySet()
     {
-        return selectSet;
+        return propertySet;
     }
 
-    public void setSelectSet( SetSelector selectSet )
+    public void setPropertySet( SetSelector propertySet )
     {
-        this.selectSet = selectSet;
+        this.propertySet = propertySet;
     }
 
     @Override
@@ -58,6 +58,6 @@ public class FromMavenProperties
                             format( "Unknown source '%s'.", source ) );
         }
 
-        return PropertiesHelper.regExFilter( selectSet, sourceProperties );
+        return PropertiesHelper.regExFilter( propertySet, sourceProperties );
     }
 }

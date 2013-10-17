@@ -62,7 +62,17 @@ limitations under the License.
                                 <fromPropertiesEntries>
                                     a = b
                                 </fromPropertiesEntries>
-                                <fromPropertiesFile>@basedir@/src/it/resources/test.properties</fromPropertiesFile>
+                                <fromPropertiesFile>
+                                    <file>@basedir@/src/it/resources/test.properties</file>
+                                    <transformers>
+                                        <forKeys>
+                                            <regExReplacer>
+                                                <match>(.*)</match>
+                                                <replacement>YEAH!!!$1</replacement>
+                                            </regExReplacer>
+                                        </forKeys>
+                                    </transformers>
+                                </fromPropertiesFile>
                             </define>
                             <write>
                                 <toMavenProperties/>
