@@ -27,16 +27,17 @@ properties-maven-plugin
                 </fromPropertiesEntries>
                 <fromPropertiesFile>
                     <file>@basedir@/src/it/resources/test.properties</file>
-                    <transforms>
-                        <trasform>
-                            <keys>
-                                <regExReplacer>
-                                    <match></match>
-                                    <replace></replace>
-                                </regExReplacer>
-                            </keys>
-                        </transform>
-                    </transforms>
+                    <transformers>
+                        <forKeys>
+                            <valueRemover>
+                                <valueSet>key1</valueSet>
+                            </valueRemover>
+                            <regExReplacer>
+                                <match>(.+)</match>
+                                <replacement>YY_$1</replacement>
+                            </regExReplacer>
+                        </forKeys>
+                    </transformers>
                 </fromPropertiesFile>
             </define>
             <write>
