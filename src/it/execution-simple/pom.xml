@@ -66,6 +66,9 @@ limitations under the License.
                                     <file>@basedir@/src/it/resources/test.properties</file>
                                     <transformers>
                                         <forKeys>
+                                            <valueRemover>
+                                                <valueSet>key1</valueSet>
+                                            </valueRemover>
                                             <regExReplacer>
                                                 <match>(.+)</match>
                                                 <replacement>YY_$1</replacement>

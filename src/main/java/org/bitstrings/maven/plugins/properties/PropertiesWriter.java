@@ -31,6 +31,8 @@ public abstract class PropertiesWriter
     {
         final Properties properties = getSelectedProperties();
 
+        transform( properties );
+
         writeProperties( properties );
     }
 

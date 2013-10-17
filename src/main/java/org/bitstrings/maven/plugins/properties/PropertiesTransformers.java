@@ -49,20 +49,35 @@ public class PropertiesTransformers
             for ( ValueTransformer transformer : forKeys )
             {
                 propertyName = transformer.transform( propertyName );
+
+                if ( propertyName == null )
+                {
+                    break;
+                }
             }
 
             for ( ValueTransformer transformer : forValues )
             {
                 propertyValue = transformer.transform( propertyValue );
+
+                if ( propertyValue == null )
+                {
+                    propertyValue = "";
+                }
             }
 
-            transformedProperties.setProperty( propertyName, propertyValue );
+            if ( propertyName != null )
+            {
+                transformedProperties.setProperty( propertyName, propertyValue );
+            }
         }
+
+        System.out.println( " -P- " + properties );
 
         properties.keySet().removeAll( selectedPropertyNames );
 
         properties.putAll( transformedProperties );
 
-        System.out.println( transformedProperties );
+        System.out.println( " -T- " + transformedProperties );
     }
 }

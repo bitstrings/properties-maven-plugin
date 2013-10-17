@@ -18,7 +18,7 @@ public final class SetSelectorHelper
     {
         final List<String> result = new LinkedList<String>();
 
-        if ( ( selectSet.getIncludes() == null ) || selectSet.getIncludes().isEmpty() )
+        if ( (selectSet == null ) || ( selectSet.getIncludes() == null ) || selectSet.getIncludes().isEmpty() )
         {
             result.addAll( source );
         }
@@ -40,7 +40,7 @@ public final class SetSelectorHelper
             }
         }
 
-        if ( selectSet.getExcludes() != null )
+        if ( (selectSet == null ) || ( selectSet.getExcludes() != null ) )
         {
             for ( String exclude : selectSet.getExcludes() )
             {
