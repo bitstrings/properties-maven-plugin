@@ -34,13 +34,7 @@ public class PropertiesMojo
     @Parameter( defaultValue = "false" )
     private boolean verbose;
 
-    @Parameter( alias="define" )
-    private List<PropertiesProvider> propertiesProviders;
-
-    @Parameter( alias="write" )
-    private List<PropertiesWriter> propertiesSinks;
-
-    @Parameter( alias="properties" )
+    @Parameter( alias="operations" )
     private List<PropertiesOperationExecutor> propertiesOperationExecutors;
 
     @Override

@@ -11,7 +11,7 @@ properties-maven-plugin
         </goals>
         <configuration>
 
-            <define>
+            <providers>
                 <fromPropertiesEntries>
                     <property>
                         <name>A1</name>
@@ -39,12 +39,12 @@ properties-maven-plugin
                         </forKeys>
                     </transformers>
                 </fromPropertiesFile>
-            </define>
-            <write>
-                <toMavenProperties/>
-                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
-                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
-            </write>
+            </providers>
+            <writers>
+                <writeMavenProperties/>
+                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</writePropertiesFile>
+                <writePropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</writePropertiesFile>
+            </writers>
 
         </configuration>
     <execution>
