@@ -59,6 +59,7 @@ public class ToMavenProperties
         else
         {
             throw new PropertiesOperationException(
+                            this,
                             format( "Unknown target '%s'.", target ) );
         }
 

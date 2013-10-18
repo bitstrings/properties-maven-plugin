@@ -105,6 +105,7 @@ public class ToPropertiesFile
                 else
                 {
                     throw new PropertiesOperationException(
+                                    this,
                                     format( "Unknown merge scheme '%s'.", mergeScheme ) );
                 }
             }
@@ -113,7 +114,7 @@ public class ToPropertiesFile
         }
         catch ( IOException e )
         {
-            throw new PropertiesOperationException( e );
+            throw new PropertiesOperationException( this, e );
         }
     }
 }

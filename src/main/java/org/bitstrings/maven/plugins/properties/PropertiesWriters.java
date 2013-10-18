@@ -12,4 +12,14 @@ public class PropertiesWriters
     {
         return writers;
     }
+
+    @Override
+    public void execute( PropertiesPluginContext context )
+    {
+        for ( PropertiesWriter writer : writers  )
+        {
+            writer.setContext( context );
+            writer.write();
+        }
+    }
 }

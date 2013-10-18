@@ -3,18 +3,31 @@ package org.bitstrings.maven.plugins.properties;
 public class PropertiesOperationException
     extends RuntimeException
 {
-    public PropertiesOperationException( String message, Throwable cause )
+    private final PropertiesOperation propertiesOperation;
+
+    public PropertiesOperationException( PropertiesOperation propertiesOperation, String message, Throwable cause )
     {
         super( message, cause );
+
+        this.propertiesOperation = propertiesOperation;
     }
 
-    public PropertiesOperationException( String message )
+    public PropertiesOperationException( PropertiesOperation propertiesOperation, String message )
     {
         super( message );
+
+        this.propertiesOperation = propertiesOperation;
     }
 
-    public PropertiesOperationException( Throwable cause )
+    public PropertiesOperationException( PropertiesOperation propertiesOperation, Throwable cause )
     {
         super( cause );
+
+        this.propertiesOperation = propertiesOperation;
+    }
+
+    public PropertiesOperation getPropertiesOperation()
+    {
+        return propertiesOperation;
     }
 }

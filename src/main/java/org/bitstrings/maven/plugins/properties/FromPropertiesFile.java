@@ -60,7 +60,7 @@ public class FromPropertiesFile
         }
         catch ( IOException e )
         {
-            throw new PropertiesOperationException( e );
+            throw new PropertiesOperationException( this, e );
         }
     }
 }

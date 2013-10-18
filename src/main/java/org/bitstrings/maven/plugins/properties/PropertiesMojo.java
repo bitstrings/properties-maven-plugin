@@ -50,38 +50,20 @@ public class PropertiesMojo
         PropertiesPluginContext context =
                         new PropertiesPluginContext( mavenSession, projectDependenciesResolver, this );
 
-        for ( PropertiesProvider propertiesProvider : propertiesProviders  )
-        {
-            try
-            {
-                context.addPropertiesProvider( propertiesProvider );
-                propertiesProvider.setContext( context );
-            }
-            catch ( PropertiesOperationException e )
-            {
-                throw new MojoExecutionException(
-                            "Define properties error [" + propertiesProvider.getClass().getSimpleName() + "]",
-                            e );
-            }
-        }
-
-        for ( PropertiesWriter propertiesSink : propertiesSinks  )
-        {
-            try
-            {
-                propertiesSink.setContext( context );
-                propertiesSink.write();
-            }
-            catch ( PropertiesOperationException e )
-            {
-                throw new MojoExecutionException(
-                            "Properties write error [" + propertiesSink.getClass().getSimpleName() + "]",
-                            e );
-            }
-        }
-
         for ( PropertiesOperationExecutor exec : propertiesOperationExecutors  )
         {
+            try
+            {
+                exec.execute( context );
+            }
+            catch ( PropertiesOperationException e )
+            {
+                throw new MojoExecutionException(
+                            "Properties operation error ["
+                                + e.getPropertiesOperation().getClass().getSimpleName()
+                                + "]",
+                            e );
+            }
         }
 
         System.out.println( mavenProject.getProperties() );

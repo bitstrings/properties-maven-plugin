@@ -8,4 +8,19 @@ public class PropertiesProviders
 {
     private final List<PropertiesProvider> providers = new ArrayList<PropertiesProvider>();
 
+    public List<PropertiesProvider> getProviders()
+    {
+        return providers;
+    }
+
+    @Override
+    public void execute( PropertiesPluginContext context )
+        throws PropertiesOperationException
+    {
+        for ( PropertiesProvider provider : providers  )
+        {
+            context.addPropertiesProvider( provider );
+            provider.setContext( context );
+        }
+    }
 }

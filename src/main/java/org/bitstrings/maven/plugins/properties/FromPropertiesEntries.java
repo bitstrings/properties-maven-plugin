@@ -33,7 +33,7 @@ public class FromPropertiesEntries
         }
 
         public abstract String getValue()
-            throws PropertiesOperationException;
+            throws Exception;
     }
 
     public static class Property
@@ -65,16 +65,9 @@ public class FromPropertiesEntries
 
         @Override
         public String getValue()
-            throws PropertiesOperationException
+            throws IOException
         {
-            try
-            {
-                return Files.toString( file, Charset.forName( charset ) );
-            }
-            catch ( IOException e )
-            {
-                throw new PropertiesOperationException( "Unable to set property [" + getName() + "].", e );
-            }
+            return Files.toString( file, Charset.forName( charset ) );
         }
     }
 
@@ -101,6 +94,7 @@ public class FromPropertiesEntries
         catch ( IOException e )
         {
             throw new PropertiesOperationException(
+                            this,
                             format(
                                 "Unable to parse given properties:%n%s",
                                 value ) );
@@ -117,9 +111,16 @@ public class FromPropertiesEntries
     {
         final Properties revolvedProperties = new Properties();
 
-        for ( Property property : properties )
+        for ( AbstractProperty property : properties )
         {
-            revolvedProperties.put( property.getName(), property.getValue() );
+            try
+            {
+                revolvedProperties.put( property.getName(), property.getValue() );
+            }
+            catch ( Exception e )
+            {
+                throw new PropertiesOperationException( this, e );
+            }
         }
 
         return revolvedProperties;

@@ -55,6 +55,7 @@ public class FromMavenProperties
         else
         {
             throw new PropertiesOperationException(
+                            this,
                             format( "Unknown source '%s'.", source ) );
         }
 
