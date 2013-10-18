@@ -6,7 +6,10 @@ import java.util.Properties;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.project.DefaultDependencyResolutionRequest;
+import org.apache.maven.project.DependencyResolutionRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectDependenciesResolver;
 import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
@@ -29,15 +32,21 @@ public class PropertiesPluginContext
 
     private final MavenSession mavenSession;
 
+    private final ProjectDependenciesResolver projectDependenciesResolver;
+
     private final Multimap<String, PropertiesProvider>
                         groupedPropertiesProvidersMap =
                                 ArrayListMultimap.<String, PropertiesProvider> create();
 
     private final AbstractMojo mojo;
 
-    public PropertiesPluginContext( MavenSession mavenSession, AbstractMojo mojo )
+    public PropertiesPluginContext(
+                        MavenSession mavenSession,
+                        ProjectDependenciesResolver projectDependenciesResolver,
+                        AbstractMojo mojo )
     {
         this.mavenSession = mavenSession;
+        this.projectDependenciesResolver = projectDependenciesResolver;
         this.mojo = mojo;
     }
 
@@ -51,9 +60,19 @@ public class PropertiesPluginContext
         return mavenSession;
     }
 
+    public ProjectDependenciesResolver getProjectDependenciesResolver()
+    {
+        return projectDependenciesResolver;
+    }
+
     public MavenProject getMavenProject()
     {
         return mavenSession.getCurrentProject();
+    }
+
+    public DependencyResolutionRequest createDependencyResolutionRequest( )
+    {
+        return new DefaultDependencyResolutionRequest( getMavenProject(), getMavenSession().getRepositorySession() );
     }
 
     public void addPropertiesProvider( PropertiesProvider propertiesProvider )

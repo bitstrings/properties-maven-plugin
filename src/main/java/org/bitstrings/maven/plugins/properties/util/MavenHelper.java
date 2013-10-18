@@ -1,10 +1,12 @@
 package org.bitstrings.maven.plugins.properties.util;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 
 import com.google.common.base.Strings;
 
@@ -12,7 +14,8 @@ public final class MavenHelper
 {
     private MavenHelper() {}
 
-    public static Set<Artifact> filterArtifacts( Set<Artifact> artifacts, List<String> includes, List<String> excludes )
+    public static Set<Artifact> filterArtifacts(
+            Set<Artifact> artifacts, List<String> includes, List<String> excludes )
     {
         final Set<Artifact> selectedArtifactSet = new HashSet<Artifact>();
 
@@ -30,9 +33,11 @@ public final class MavenHelper
                 }
                 else
                 {
+                    final ArtifactMatcher artifactMatcher = new ArtifactMatcher( include );
+
                     for ( Artifact artifact : artifacts )
                     {
-                        if ( new ArtifactMatcher( include ).match( artifact ) )
+                        if ( artifactMatcher.match( artifact ) )
                         {
                             selectedArtifactSet.add( artifact );
 
@@ -53,9 +58,11 @@ public final class MavenHelper
             }
             else
             {
+                final ArtifactMatcher artifactMatcher = new ArtifactMatcher( exclude );
+
                 for ( Artifact artifact : artifacts )
                 {
-                    if ( new ArtifactMatcher( exclude ).match( artifact ) )
+                    if ( artifactMatcher.match( artifact ) )
                     {
                         selectedArtifactSet.remove( artifact );
 
@@ -66,5 +73,12 @@ public final class MavenHelper
         }
 
         return selectedArtifactSet;
+    }
+
+    public static Set<Artifact> filterArtifacts( Set<Artifact> artifacts, Collection<ArtifactFilter> filters )
+    {
+
+
+        return null;
     }
 }

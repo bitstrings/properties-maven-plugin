@@ -11,7 +11,12 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.DefaultDependencyResolutionRequest;
+import org.apache.maven.project.DependencyResolutionRequest;
+import org.apache.maven.project.DependencyResolutionResult;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectDependenciesResolver;
+import org.sonatype.aether.util.filter.PatternInclusionsDependencyFilter;
 
 @Mojo( name = "properties", defaultPhase = INITIALIZE, threadSafe = true )
 public class PropertiesMojo
@@ -23,6 +28,9 @@ public class PropertiesMojo
     @Component
     private MavenSession mavenSession;
 
+    @Component
+    private ProjectDependenciesResolver projectDependenciesResolver;
+
     @Parameter( defaultValue = "false" )
     private boolean verbose;
 
@@ -32,11 +40,15 @@ public class PropertiesMojo
     @Parameter( alias="write" )
     private List<PropertiesWriter> propertiesSinks;
 
+    @Parameter( alias="properties" )
+    private List<PropertiesOperationExecutor> propertiesOperationExecutors;
+
     @Override
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        PropertiesPluginContext context = new PropertiesPluginContext( mavenSession, this );
+        PropertiesPluginContext context =
+                        new PropertiesPluginContext( mavenSession, projectDependenciesResolver, this );
 
         for ( PropertiesProvider propertiesProvider : propertiesProviders  )
         {
@@ -68,6 +80,34 @@ public class PropertiesMojo
             }
         }
 
+        for ( PropertiesOperationExecutor exec : propertiesOperationExecutors  )
+        {
+        }
+
         System.out.println( mavenProject.getProperties() );
+
+        try
+        {
+            System.out.println( "mavenProject: " + mavenProject );
+            System.out.println( "mavenSession: " + mavenSession );
+            System.out.println( "projectDependenciesResolver: " + projectDependenciesResolver );
+
+            DependencyResolutionRequest request =
+                            new DefaultDependencyResolutionRequest( mavenProject, mavenSession.getRepositorySession() );
+
+            request.setResolutionFilter( new PatternInclusionsDependencyFilter( "*:*:*:*" ) );
+
+            DependencyResolutionResult result =
+                        projectDependenciesResolver
+                                .resolve( request );
+
+            System.out.println( result.getCollectionErrors() );
+            System.out.println( result.getResolvedDependencies() );
+        }
+        catch ( Exception e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
