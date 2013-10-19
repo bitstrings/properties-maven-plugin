@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties.transformer;
+package org.bitstrings.maven.plugins.properties;
 
 import static org.bitstrings.maven.plugins.properties.util.SetSelectorHelper.regExfilter;
 
@@ -7,7 +7,7 @@ import java.util.Collections;
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 
 public class ValueRemover
-    implements ValueTransformer
+    implements Transformer
 {
     private SetSelector valueSet;
 

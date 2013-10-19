@@ -80,7 +80,7 @@ limitations under the License.
                                     </fromPropertiesFile>
                                 </define>
                                 <write>
-                                    <toMavenProperties/>
+                                    <toMavenEnvironment/>
                                     <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
                                     <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
                                 </write>

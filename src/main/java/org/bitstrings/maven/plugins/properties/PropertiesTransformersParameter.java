@@ -5,16 +5,15 @@ import java.util.List;
 import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
-import org.bitstrings.maven.plugins.properties.transformer.ValueTransformer;
 import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
 
 public class PropertiesTransformersParameter
 {
     private SetSelector propertySet = new SetSelector();
 
-    private final List<ValueTransformer> forKeys = new ArrayList<ValueTransformer>();
+    private final List<Transformer> forKeys = new ArrayList<Transformer>();
 
-    private final List<ValueTransformer> forValues = new ArrayList<ValueTransformer>();
+    private final List<Transformer> forValues = new ArrayList<Transformer>();
 
     public SetSelector getPropertySet()
     {
@@ -26,12 +25,12 @@ public class PropertiesTransformersParameter
         this.propertySet = propertySet;
     }
 
-    public List<ValueTransformer> getForKeys()
+    public List<Transformer> getForKeys()
     {
         return forKeys;
     }
 
-    public List<ValueTransformer> getForValues()
+    public List<Transformer> getForValues()
     {
         return forValues;
     }
@@ -47,7 +46,7 @@ public class PropertiesTransformersParameter
         {
             String propertyValue = properties.getProperty( propertyName );
 
-            for ( ValueTransformer transformer : forKeys )
+            for ( Transformer transformer : forKeys )
             {
                 propertyName = transformer.transform( propertyName );
 
@@ -57,7 +56,7 @@ public class PropertiesTransformersParameter
                 }
             }
 
-            for ( ValueTransformer transformer : forValues )
+            for ( Transformer transformer : forValues )
             {
                 propertyValue = transformer.transform( propertyValue );
 
@@ -73,12 +72,8 @@ public class PropertiesTransformersParameter
             }
         }
 
-        System.out.println( " -P- " + properties );
-
         properties.keySet().removeAll( selectedPropertyNames );
 
         properties.putAll( transformedProperties );
-
-        System.out.println( " -T- " + transformedProperties );
     }
 }

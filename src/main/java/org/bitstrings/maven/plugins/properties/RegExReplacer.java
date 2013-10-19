@@ -1,9 +1,9 @@
-package org.bitstrings.maven.plugins.properties.transformer;
+package org.bitstrings.maven.plugins.properties;
 
 import java.util.regex.Pattern;
 
 public class RegExReplacer
-    implements ValueTransformer
+    implements Transformer
 {
     private String match;
 
