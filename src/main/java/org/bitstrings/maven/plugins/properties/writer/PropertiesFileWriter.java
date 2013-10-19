@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.writer;
 
 import static java.lang.String.format;
 
@@ -6,10 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
 import org.bitstrings.maven.plugins.properties.util.MapHelper;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
-public class WritePropertiesFile
+public class PropertiesFileWriter
     extends PropertiesWriter
 {
     public static final String MERGE_OVERRIDE = "override";

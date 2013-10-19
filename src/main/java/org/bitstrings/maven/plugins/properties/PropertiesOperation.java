@@ -13,7 +13,7 @@ public class PropertiesOperation
 
     private String operationTag = this.getClass().getSimpleName();
 
-    private PropertiesTransformers transformers;
+    private PropertiesTransformersParameter transformers;
 
     public PropertiesPluginContext getContext()
     {
@@ -42,7 +42,7 @@ public class PropertiesOperation
         this.operationTag = operationTag;
     }
 
-    public PropertiesTransformers getTransformers()
+    public PropertiesTransformersParameter getTransformers()
     {
         return transformers;
     }

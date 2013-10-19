@@ -1,13 +1,14 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
-public class FromPropertiesFile
-    extends PropertiesProvider
+public class PropertiesFileSource
+    extends PropertiesSource
 {
     private File file;
 

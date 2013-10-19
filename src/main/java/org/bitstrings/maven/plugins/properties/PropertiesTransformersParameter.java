@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.transformer.ValueTransformer;
 import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
 
-public class PropertiesTransformers
+public class PropertiesTransformersParameter
 {
     private SetSelector propertySet = new SetSelector();
 

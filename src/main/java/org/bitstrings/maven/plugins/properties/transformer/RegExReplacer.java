@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.transformer;
 
 import java.util.regex.Pattern;
 

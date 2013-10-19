@@ -1,5 +1,6 @@
 package org.bitstrings.maven.plugins.properties;
 
+
 public class PropertiesOperationException
     extends RuntimeException
 {

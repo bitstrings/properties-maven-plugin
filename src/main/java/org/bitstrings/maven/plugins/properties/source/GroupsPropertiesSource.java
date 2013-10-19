@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
 
-public class FromGroups
-    extends PropertiesProvider
+public class GroupsPropertiesSource
+    extends PropertiesSource
 {
     private final List<PropertiesSelector> propertiesSets = new ArrayList<PropertiesSelector>();
 

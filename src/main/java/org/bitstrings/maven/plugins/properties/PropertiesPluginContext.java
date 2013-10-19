@@ -12,6 +12,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
 import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.source.PropertiesSource;
 import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -23,7 +24,7 @@ public class PropertiesPluginContext
 
     static
     {
-        NO_SELECT_IS_DEFAULT_GROUP.set( PropertiesProvider.DEFAULT_GROUP_NAME );
+        NO_SELECT_IS_DEFAULT_GROUP.set( PropertiesSource.DEFAULT_GROUP_NAME );
     }
 
     private static final List<PropertiesSelector>
@@ -34,9 +35,9 @@ public class PropertiesPluginContext
 
     private final ProjectDependenciesResolver projectDependenciesResolver;
 
-    private final Multimap<String, PropertiesProvider>
-                        groupedPropertiesProvidersMap =
-                                ArrayListMultimap.<String, PropertiesProvider> create();
+    private final Multimap<String, PropertiesSource>
+                        groupedPropertiesSourcesMap =
+                                ArrayListMultimap.<String, PropertiesSource> create();
 
     private final AbstractMojo mojo;
 
@@ -75,9 +76,9 @@ public class PropertiesPluginContext
         return new DefaultDependencyResolutionRequest( getMavenProject(), getMavenSession().getRepositorySession() );
     }
 
-    public void addPropertiesProvider( PropertiesProvider propertiesProvider )
+    public void addPropertiesSource( PropertiesSource source )
     {
-        groupedPropertiesProvidersMap.put( propertiesProvider.getGroupName(), propertiesProvider );
+        groupedPropertiesSourcesMap.put( source.getGroupName(), source );
     }
 
     public Properties getUnifiedProperties( List<String> groupsNames )
@@ -86,9 +87,9 @@ public class PropertiesPluginContext
 
         for ( String groupName : groupsNames )
         {
-            for ( PropertiesProvider propertiesProvider : groupedPropertiesProvidersMap.get( groupName ) )
+            for ( PropertiesSource source : groupedPropertiesSourcesMap.get( groupName ) )
             {
-                properties.putAll( propertiesProvider.getProperties() );
+                properties.putAll( source.getProperties() );
             }
         }
 
@@ -107,7 +108,7 @@ public class PropertiesPluginContext
         final List<String> selectedGroups =
                     SetSelectorHelper.regExfilter(
                         groupSet,
-                        groupedPropertiesProvidersMap.keySet() );
+                        groupedPropertiesSourcesMap.keySet() );
 
         final Properties properties = getUnifiedProperties( selectedGroups );
 

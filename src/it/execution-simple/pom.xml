@@ -48,40 +48,44 @@ limitations under the License.
                         </goals>
                         <configuration>
 
-                            <define>
-                                <fromPropertiesEntries>
-                                    <property>
-                                        <name>A1</name>
-                                        <value>V1</value>
-                                    </property>
-                                    <property>
-                                        <name>A2</name>
-                                        <value>V2</value>
-                                    </property>
-                                </fromPropertiesEntries>
-                                <fromPropertiesEntries>
-                                    a = b
-                                </fromPropertiesEntries>
-                                <fromPropertiesFile>
-                                    <file>@basedir@/src/it/resources/test.properties</file>
-                                    <transformers>
-                                        <forKeys>
-                                            <valueRemover>
-                                                <valueSet>key1</valueSet>
-                                            </valueRemover>
-                                            <regExReplacer>
-                                                <match>(.+)</match>
-                                                <replacement>YY_$1</replacement>
-                                            </regExReplacer>
-                                        </forKeys>
-                                    </transformers>
-                                </fromPropertiesFile>
-                            </define>
-                            <write>
-                                <toMavenProperties/>
-                                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
-                                <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
-                            </write>
+                            <operations>
+
+                                <define>
+                                    <fromPropertiesEntries>
+                                        <property>
+                                            <name>A1</name>
+                                            <value>V1</value>
+                                        </property>
+                                        <property>
+                                            <name>A2</name>
+                                            <value>V2</value>
+                                        </property>
+                                    </fromPropertiesEntries>
+                                    <fromPropertiesEntries>
+                                        a = b
+                                    </fromPropertiesEntries>
+                                    <fromPropertiesFile>
+                                        <file>@basedir@/src/it/resources/test.properties</file>
+                                        <transformers>
+                                            <forKeys>
+                                                <valueRemover>
+                                                    <valueSet>key1</valueSet>
+                                                </valueRemover>
+                                                <regExReplacer>
+                                                    <match>(.+)</match>
+                                                    <replacement>YY_$1</replacement>
+                                                </regExReplacer>
+                                            </forKeys>
+                                        </transformers>
+                                    </fromPropertiesFile>
+                                </define>
+                                <write>
+                                    <toMavenProperties/>
+                                    <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
+                                    <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
+                                </write>
+
+                            </operations>
 
                         </configuration>
                     </execution>

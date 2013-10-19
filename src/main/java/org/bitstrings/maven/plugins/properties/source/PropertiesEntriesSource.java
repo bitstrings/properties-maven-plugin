@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import static java.lang.String.format;
 
@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
+
 import com.google.common.io.Files;
 
-public class FromPropertiesEntries
-    extends PropertiesProvider
+public class PropertiesEntriesSource
+    extends PropertiesSource
 {
     private final List<Property> properties = new ArrayList<Property>();
 

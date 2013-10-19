@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import java.util.List;
 import java.util.Properties;
@@ -8,8 +8,8 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.project.MavenProject;
 import org.bitstrings.maven.plugins.properties.selector.DependencySetSelector;
 
-public class FromDependencies
-    extends PropertiesProvider
+public class DependenciesPropertiesSource
+    extends PropertiesSource
 {
     private List<DependencySetSelector> dependencySets;
 

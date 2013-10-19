@@ -1,9 +1,11 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.writer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.PropertiesOperation;
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
 import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
 
 public abstract class PropertiesWriter

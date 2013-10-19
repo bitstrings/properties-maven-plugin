@@ -1,8 +1,11 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import java.util.Properties;
 
-public abstract class PropertiesProvider
+import org.bitstrings.maven.plugins.properties.PropertiesOperation;
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
+
+public abstract class PropertiesSource
     extends PropertiesOperation
 {
     public static final String DEFAULT_GROUP_NAME = "default";

@@ -2,8 +2,6 @@ package org.bitstrings.maven.plugins.properties;
 
 import static org.apache.maven.plugins.annotations.LifecyclePhase.INITIALIZE;
 
-import java.util.List;
-
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -35,7 +33,7 @@ public class PropertiesMojo
     private boolean verbose;
 
     @Parameter( alias="operations" )
-    private List<PropertiesOperationExecutor> propertiesOperationExecutors;
+    private PropertiesOperationsExecutor propertiesOperationsExecutor;
 
     @Override
     public void execute()
@@ -44,20 +42,17 @@ public class PropertiesMojo
         PropertiesPluginContext context =
                         new PropertiesPluginContext( mavenSession, projectDependenciesResolver, this );
 
-        for ( PropertiesOperationExecutor exec : propertiesOperationExecutors  )
+        try
         {
-            try
-            {
-                exec.execute( context );
-            }
-            catch ( PropertiesOperationException e )
-            {
-                throw new MojoExecutionException(
-                            "Properties operation error ["
-                                + e.getPropertiesOperation().getClass().getSimpleName()
-                                + "]",
-                            e );
-            }
+            propertiesOperationsExecutor.execute( context );
+        }
+        catch ( PropertiesOperationException e )
+        {
+            throw new MojoExecutionException(
+                        "Properties operation error ["
+                            + e.getPropertiesOperation().getClass().getSimpleName()
+                            + "]",
+                        e );
         }
 
         System.out.println( mavenProject.getProperties() );
