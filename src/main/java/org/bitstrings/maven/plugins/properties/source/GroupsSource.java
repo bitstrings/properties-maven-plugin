@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
 
-public class GroupsPropertiesSource
+public class GroupsSource
     extends PropertiesSource
 {
     private final List<PropertiesSelector> propertiesSets = new ArrayList<PropertiesSelector>();

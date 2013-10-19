@@ -8,7 +8,7 @@ import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
 import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
-public class MavenPropertiesSource
+public class MavenEnvironmentSource
     extends PropertiesSource
 {
     public static final String SOURCE_PROJECT = "project";

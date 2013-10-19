@@ -8,7 +8,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.project.MavenProject;
 import org.bitstrings.maven.plugins.properties.selector.DependencySetSelector;
 
-public class DependenciesPropertiesSource
+public class DependenciesSource
     extends PropertiesSource
 {
     private List<DependencySetSelector> dependencySets;
