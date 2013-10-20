@@ -3,17 +3,17 @@ package org.bitstrings.maven.plugins.properties;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropertiesOperationsExecutor
+public class PropertiesOperations
     implements PropertiesOperationExecutor
 {
     private final List<PropertiesOperationExecutor> operationExecutors = new ArrayList<PropertiesOperationExecutor>();
 
-    public void addDefine( PropertiesDefineOperationsExecutor defineParameter )
+    public void addDefine( PropertiesDefineOperations defineParameter )
     {
         operationExecutors.add( defineParameter );
     }
 
-    public void addWrite( PropertiesWriteOperationsExecutor writeParameter )
+    public void addWrite( PropertiesWriteOperations writeParameter )
     {
         operationExecutors.add( writeParameter );
     }

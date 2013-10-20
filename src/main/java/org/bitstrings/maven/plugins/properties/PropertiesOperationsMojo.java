@@ -16,8 +16,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
 import org.sonatype.aether.util.filter.PatternInclusionsDependencyFilter;
 
-@Mojo( name = "properties", defaultPhase = INITIALIZE, threadSafe = true )
-public class PropertiesMojo
+@Mojo( name = "operations", defaultPhase = INITIALIZE, threadSafe = true )
+public class PropertiesOperationsMojo
     extends AbstractMojo
 {
     @Component
@@ -33,7 +33,7 @@ public class PropertiesMojo
     private boolean verbose;
 
     @Parameter( alias="operations" )
-    private PropertiesOperationsExecutor propertiesOperationsExecutor;
+    private PropertiesOperations propertiesOperationsExecutor;
 
     @Override
     public void execute()

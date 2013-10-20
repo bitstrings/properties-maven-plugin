@@ -1,7 +1,9 @@
 package org.bitstrings.maven.plugins.properties;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.maven.execution.MavenSession;
@@ -20,15 +22,15 @@ import com.google.common.collect.Multimap;
 
 public class PropertiesPluginContext
 {
-    private static final SetSelector NO_SELECT_IS_DEFAULT_GROUP = new SetSelector();
+    private static final SetSelector NO_SELECT = new SetSelector();
 
     static
     {
-        NO_SELECT_IS_DEFAULT_GROUP.set( PropertiesSource.DEFAULT_GROUP_NAME );
+        NO_SELECT.set( PropertiesSource.DEFAULT_GROUP_NAME );
     }
 
     private static final List<PropertiesSelector>
-                    NO_SELECT_LIST_IS_ALL =
+                    NO_PROPERTIES_SELECT_LIST =
                                     Collections.singletonList( new PropertiesSelector() );
 
     private final MavenSession mavenSession;
@@ -38,6 +40,10 @@ public class PropertiesPluginContext
     private final Multimap<String, PropertiesSource>
                         groupedPropertiesSourcesMap =
                                 ArrayListMultimap.<String, PropertiesSource> create();
+
+    private final Map<String, Properties>
+                        cachedPropertiesFromSourcesMap =
+                                new HashMap<String, Properties>();
 
     private final AbstractMojo mojo;
 
@@ -81,16 +87,34 @@ public class PropertiesPluginContext
         groupedPropertiesSourcesMap.put( source.getGroupName(), source );
     }
 
+    public Properties getProperties( String groupName )
+    {
+        Properties properties = cachedPropertiesFromSourcesMap.get( groupName );
+
+        if ( properties != null )
+        {
+            return properties;
+        }
+
+        properties = new Properties();
+
+        for ( PropertiesSource source : groupedPropertiesSourcesMap.get( groupName ) )
+        {
+            properties.putAll( source.getProperties() );
+        }
+
+        cachedPropertiesFromSourcesMap.put( groupName, properties );
+
+        return properties;
+    }
+
     public Properties getUnifiedProperties( List<String> groupsNames )
     {
-        final Properties properties = new Properties();
+        Properties properties = new Properties();
 
         for ( String groupName : groupsNames )
         {
-            for ( PropertiesSource source : groupedPropertiesSourcesMap.get( groupName ) )
-            {
-                properties.putAll( source.getProperties() );
-            }
+            properties.putAll( getProperties( groupName ) );
         }
 
         return properties;
@@ -102,7 +126,7 @@ public class PropertiesPluginContext
 
         if ( groupSet == null )
         {
-            groupSet = NO_SELECT_IS_DEFAULT_GROUP;
+            groupSet = NO_SELECT;
         }
 
         final List<String> selectedGroups =
@@ -133,7 +157,7 @@ public class PropertiesPluginContext
 
         if ( selectPropertiesSets.isEmpty() )
         {
-            selectPropertiesSets = NO_SELECT_LIST_IS_ALL;
+            selectPropertiesSets = NO_PROPERTIES_SELECT_LIST;
         }
 
         for ( PropertiesSelector selectPropertiesSet : selectPropertiesSets )

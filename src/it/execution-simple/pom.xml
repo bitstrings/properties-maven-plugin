@@ -44,7 +44,7 @@ limitations under the License.
                         <id>exec</id>
                         <phase>compile</phase>
                         <goals>
-                            <goal>properties</goal>
+                            <goal>operations</goal>
                         </goals>
                         <configuration>
 
@@ -83,6 +83,12 @@ limitations under the License.
                                     <toMavenEnvironment/>
                                     <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.properties</toPropertiesFile>
                                     <toPropertiesFile>${project.build.directory}/test_${project.artifactId}.xml</toPropertiesFile>
+                                    <toSystemOut/>
+                                    <toSystemOut>
+                                        <xmlFormat>true</xmlFormat>
+                                        <preText>------------------------[ START ]--</preText>
+                                        <postText>------------------------[ END ]--</postText>
+                                    </toSystemOut>
                                 </write>
 
                             </operations>

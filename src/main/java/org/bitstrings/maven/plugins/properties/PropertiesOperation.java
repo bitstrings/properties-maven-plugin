@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
-public class PropertiesOperation
+public abstract class PropertiesOperation
 {
     private PropertiesPluginContext context;
 
@@ -27,19 +27,9 @@ public class PropertiesOperation
         this.log = context.getMojo().getLog();
     }
 
-    public MavenProject getMavenProject()
+    protected MavenProject getMavenProject()
     {
         return context.getMavenProject();
-    }
-
-    public String getOperationTag()
-    {
-        return operationTag;
-    }
-
-    public void setOperationTag( String operationTag )
-    {
-        this.operationTag = operationTag;
     }
 
     public PropertiesTransformersParameter getTransformers()
@@ -57,8 +47,18 @@ public class PropertiesOperation
         transformers.transform( properties );
     }
 
-    public Log getLog()
+    protected Log getLog()
     {
         return log;
+    }
+
+    public String getOperationTag()
+    {
+        return operationTag;
+    }
+
+    public void setOperationTag( String operationTag )
+    {
+        this.operationTag = operationTag;
     }
 }

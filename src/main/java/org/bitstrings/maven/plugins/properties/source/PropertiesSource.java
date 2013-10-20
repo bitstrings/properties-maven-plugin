@@ -12,8 +12,6 @@ public abstract class PropertiesSource
 
     private String groupName = DEFAULT_GROUP_NAME;
 
-    private Properties properties;
-
     public String getGroupName()
     {
         return groupName;
@@ -27,16 +25,13 @@ public abstract class PropertiesSource
     public Properties getProperties()
         throws PropertiesOperationException
     {
-        if ( properties == null )
-        {
-            properties = resolveProperties();
+        final Properties properties = resolveProperties();
 
-            transform( properties );
-        }
+        transform( properties );
 
         return properties;
     }
 
     protected abstract Properties resolveProperties()
-        throws PropertiesOperationException;
+                    throws PropertiesOperationException;
 }
