@@ -1,14 +1,12 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.writer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bitstrings.maven.plugins.properties.writer.MavenEnvironmentWriter;
-import org.bitstrings.maven.plugins.properties.writer.PropertiesFileWriter;
-import org.bitstrings.maven.plugins.properties.writer.PropertiesWriter;
-import org.bitstrings.maven.plugins.properties.writer.SystemOutWriter;
+import org.bitstrings.maven.plugins.properties.PropertiesOperationExecutor;
+import org.bitstrings.maven.plugins.properties.PropertiesPluginContext;
 
-public class PropertiesWriteOperations
+public class PropertiesWriters
     implements PropertiesOperationExecutor
 {
     private final List<PropertiesWriter> writers = new ArrayList<PropertiesWriter>();

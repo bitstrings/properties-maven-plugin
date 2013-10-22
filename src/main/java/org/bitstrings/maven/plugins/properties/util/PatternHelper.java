@@ -6,15 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.PatternSet;
 
 import com.google.common.base.Splitter;
 
-public final class SetSelectorHelper
+public final class PatternHelper
 {
-    private SetSelectorHelper() {}
+    private PatternHelper() {}
 
-    public static List<String> regExfilter( SetSelector selectSet, Collection<String> source )
+    public static List<String> regExfilter( PatternSet selectSet, Collection<String> source )
     {
         final List<String> result = new LinkedList<String>();
 

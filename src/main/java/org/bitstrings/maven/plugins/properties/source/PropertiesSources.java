@@ -1,16 +1,13 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.source;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bitstrings.maven.plugins.properties.source.DependenciesSource;
-import org.bitstrings.maven.plugins.properties.source.GroupsSource;
-import org.bitstrings.maven.plugins.properties.source.MavenEnvironmentSource;
-import org.bitstrings.maven.plugins.properties.source.PropertiesEntriesSource;
-import org.bitstrings.maven.plugins.properties.source.PropertiesFileSource;
-import org.bitstrings.maven.plugins.properties.source.PropertiesSource;
+import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
+import org.bitstrings.maven.plugins.properties.PropertiesOperationExecutor;
+import org.bitstrings.maven.plugins.properties.PropertiesPluginContext;
 
-public class PropertiesDefineOperations
+public class PropertiesSources
     implements PropertiesOperationExecutor
 {
     private final List<PropertiesSource> propertiesSources = new ArrayList<PropertiesSource>();

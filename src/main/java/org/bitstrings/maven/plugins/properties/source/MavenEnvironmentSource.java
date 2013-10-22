@@ -4,8 +4,8 @@ import static java.lang.String.format;
 
 import java.util.Properties;
 
+import org.bitstrings.maven.plugins.properties.PatternSet;
 import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 import org.bitstrings.maven.plugins.properties.util.PropertiesHelper;
 
 public class MavenEnvironmentSource
@@ -16,7 +16,7 @@ public class MavenEnvironmentSource
 
     private String source = SOURCE_PROJECT;
 
-    private SetSelector propertySet = new SetSelector();
+    private PatternSet propertySet = new PatternSet();
 
     public String getSource()
     {
@@ -28,12 +28,12 @@ public class MavenEnvironmentSource
         this.source = source;
     }
 
-    public SetSelector getPropertySet()
+    public PatternSet getPropertySet()
     {
         return propertySet;
     }
 
-    public void setPropertySet( SetSelector propertySet )
+    public void setPropertySet( PatternSet propertySet )
     {
         this.propertySet = propertySet;
     }

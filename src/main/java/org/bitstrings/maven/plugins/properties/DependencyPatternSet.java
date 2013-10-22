@@ -1,8 +1,8 @@
-package org.bitstrings.maven.plugins.properties.selector;
+package org.bitstrings.maven.plugins.properties;
 
-public class DependencySetSelector
+public class DependencyPatternSet
 {
-    private SetSelector dependencySet;
+    private PatternSet dependencySet;
 
     private String scope = "compile";
 
@@ -10,12 +10,12 @@ public class DependencySetSelector
 
     private boolean transitive = true;
 
-    public SetSelector getDependencySet()
+    public PatternSet getDependencySet()
     {
         return dependencySet;
     }
 
-    public void setDependencySet( SetSelector dependencySet )
+    public void setDependencySet( PatternSet dependencySet )
     {
         this.dependencySet = dependencySet;
     }

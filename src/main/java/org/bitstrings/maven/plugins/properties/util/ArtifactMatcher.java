@@ -1,6 +1,6 @@
 package org.bitstrings.maven.plugins.properties.util;
 
-import static org.bitstrings.maven.plugins.properties.util.SetSelectorHelper.matchWildcard;
+import static org.bitstrings.maven.plugins.properties.util.PatternHelper.matchWildcard;
 
 import java.util.Arrays;
 import java.util.List;

@@ -13,7 +13,7 @@ public abstract class PropertiesOperation
 
     private String operationTag = this.getClass().getSimpleName();
 
-    private PropertiesTransformersParameter transformers;
+    private PropertiesTransformers transformers;
 
     public PropertiesPluginContext getContext()
     {
@@ -32,7 +32,7 @@ public abstract class PropertiesOperation
         return context.getMavenProject();
     }
 
-    public PropertiesTransformersParameter getTransformers()
+    public PropertiesTransformers getTransformers()
     {
         return transformers;
     }

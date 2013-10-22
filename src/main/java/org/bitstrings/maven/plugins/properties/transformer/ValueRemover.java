@@ -1,22 +1,22 @@
-package org.bitstrings.maven.plugins.properties;
+package org.bitstrings.maven.plugins.properties.transformer;
 
-import static org.bitstrings.maven.plugins.properties.util.SetSelectorHelper.regExfilter;
+import static org.bitstrings.maven.plugins.properties.util.PatternHelper.regExfilter;
 
 import java.util.Collections;
 
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.PatternSet;
 
 public class ValueRemover
     implements Transformer
 {
-    private SetSelector valueSet;
+    private PatternSet valueSet;
 
-    public SetSelector getValueSet()
+    public PatternSet getValueSet()
     {
         return valueSet;
     }
 
-    public void setValueSet( SetSelector valueSet )
+    public void setValueSet( PatternSet valueSet )
     {
         this.valueSet = valueSet;
     }

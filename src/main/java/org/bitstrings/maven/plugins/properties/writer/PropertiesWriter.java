@@ -6,19 +6,19 @@ import java.util.Properties;
 
 import org.bitstrings.maven.plugins.properties.PropertiesOperation;
 import org.bitstrings.maven.plugins.properties.PropertiesOperationException;
-import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
+import org.bitstrings.maven.plugins.properties.PropertiesPatternSet;
 
 public abstract class PropertiesWriter
     extends PropertiesOperation
 {
-    private List<PropertiesSelector> propertiesSets = new ArrayList<PropertiesSelector>();
+    private List<PropertiesPatternSet> propertiesSets = new ArrayList<PropertiesPatternSet>();
 
-    public List<PropertiesSelector> getPropertiesSets()
+    public List<PropertiesPatternSet> getPropertiesSets()
     {
         return propertiesSets;
     }
 
-    public void addPropertiesSet( PropertiesSelector propertiesSet )
+    public void addPropertiesSet( PropertiesPatternSet propertiesSet )
     {
         propertiesSets.add( propertiesSet );
     }

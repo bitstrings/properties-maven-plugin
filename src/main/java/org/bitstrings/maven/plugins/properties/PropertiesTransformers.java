@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
-import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
+import org.bitstrings.maven.plugins.properties.transformer.Transformer;
+import org.bitstrings.maven.plugins.properties.util.PatternHelper;
 
-public class PropertiesTransformersParameter
+public class PropertiesTransformers
 {
-    private SetSelector propertySet = new SetSelector();
+    private PatternSet propertySet = new PatternSet();
 
     private final List<Transformer> forKeys = new ArrayList<Transformer>();
 
     private final List<Transformer> forValues = new ArrayList<Transformer>();
 
-    public SetSelector getPropertySet()
+    public PatternSet getPropertySet()
     {
         return propertySet;
     }
 
-    public void setPropertySet( SetSelector propertySet )
+    public void setPropertySet( PatternSet propertySet )
     {
         this.propertySet = propertySet;
     }
@@ -38,7 +38,7 @@ public class PropertiesTransformersParameter
     public void transform( Properties properties )
     {
         final List<String> selectedPropertyNames =
-                        SetSelectorHelper.regExfilter( propertySet, properties.stringPropertyNames() );
+                        PatternHelper.regExfilter( propertySet, properties.stringPropertyNames() );
 
         final Properties transformedProperties = new Properties();
 

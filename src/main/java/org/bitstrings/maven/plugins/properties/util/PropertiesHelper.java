@@ -20,7 +20,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.plugin.logging.Log;
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
+import org.bitstrings.maven.plugins.properties.PatternSet;
 
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
@@ -144,7 +144,7 @@ public final class PropertiesHelper
         }
     }
 
-    public static void regExFilter( SetSelector selectSet, Properties source, Properties target )
+    public static void regExFilter( PatternSet selectSet, Properties source, Properties target )
     {
         for ( Map.Entry<String, String> elem : (Set<Map.Entry<String, String>>) (Set<?>) source.entrySet() )
         {
@@ -175,7 +175,7 @@ public final class PropertiesHelper
         }
     }
 
-    public static Properties regExFilter( SetSelector selectSet, Properties source )
+    public static Properties regExFilter( PatternSet selectSet, Properties source )
     {
         final Properties target = new Properties();
 

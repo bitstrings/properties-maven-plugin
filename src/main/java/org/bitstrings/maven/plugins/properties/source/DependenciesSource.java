@@ -6,19 +6,19 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.project.MavenProject;
-import org.bitstrings.maven.plugins.properties.selector.DependencySetSelector;
+import org.bitstrings.maven.plugins.properties.DependencyPatternSet;
 
 public class DependenciesSource
     extends PropertiesSource
 {
-    private List<DependencySetSelector> dependencySets;
+    private List<DependencyPatternSet> dependencySets;
 
-    public List<DependencySetSelector> getDependencySets()
+    public List<DependencyPatternSet> getDependencySets()
     {
         return dependencySets;
     }
 
-    public void setDependencySets( List<DependencySetSelector> dependencySets )
+    public void setDependencySets( List<DependencyPatternSet> dependencySets )
     {
         this.dependencySets = dependencySets;
     }

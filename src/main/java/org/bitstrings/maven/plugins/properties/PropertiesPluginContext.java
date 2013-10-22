@@ -12,26 +12,24 @@ import org.apache.maven.project.DefaultDependencyResolutionRequest;
 import org.apache.maven.project.DependencyResolutionRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.bitstrings.maven.plugins.properties.selector.PropertiesSelector;
-import org.bitstrings.maven.plugins.properties.selector.SetSelector;
 import org.bitstrings.maven.plugins.properties.source.PropertiesSource;
-import org.bitstrings.maven.plugins.properties.util.SetSelectorHelper;
+import org.bitstrings.maven.plugins.properties.util.PatternHelper;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 public class PropertiesPluginContext
 {
-    private static final SetSelector NO_SELECT = new SetSelector();
+    private static final PatternSet NO_SELECT = new PatternSet();
 
     static
     {
         NO_SELECT.set( PropertiesSource.DEFAULT_GROUP_NAME );
     }
 
-    private static final List<PropertiesSelector>
+    private static final List<PropertiesPatternSet>
                     NO_PROPERTIES_SELECT_LIST =
-                                    Collections.singletonList( new PropertiesSelector() );
+                                    Collections.singletonList( new PropertiesPatternSet() );
 
     private final MavenSession mavenSession;
 
@@ -120,9 +118,9 @@ public class PropertiesPluginContext
         return properties;
     }
 
-    public Properties getProperties( PropertiesSelector selectPropertiesSet )
+    public Properties getProperties( PropertiesPatternSet selectPropertiesSet )
     {
-        SetSelector groupSet = selectPropertiesSet.getGroupSet();
+        PatternSet groupSet = selectPropertiesSet.getGroupSet();
 
         if ( groupSet == null )
         {
@@ -130,18 +128,18 @@ public class PropertiesPluginContext
         }
 
         final List<String> selectedGroups =
-                    SetSelectorHelper.regExfilter(
+                    PatternHelper.regExfilter(
                         groupSet,
                         groupedPropertiesSourcesMap.keySet() );
 
         final Properties properties = getUnifiedProperties( selectedGroups );
 
-        final SetSelector propertiesSet = selectPropertiesSet.getPropertySet();
+        final PatternSet propertiesSet = selectPropertiesSet.getPropertySet();
 
         if ( propertiesSet != null )
         {
             final List<String> selectedProperties =
-                        SetSelectorHelper.regExfilter(
+                        PatternHelper.regExfilter(
                             propertiesSet,
                             properties.stringPropertyNames() );
 
@@ -151,7 +149,7 @@ public class PropertiesPluginContext
         return properties;
     }
 
-    public Properties getProperties( List<PropertiesSelector> selectPropertiesSets )
+    public Properties getProperties( List<PropertiesPatternSet> selectPropertiesSets )
     {
         final Properties properties = new Properties();
 
@@ -160,7 +158,7 @@ public class PropertiesPluginContext
             selectPropertiesSets = NO_PROPERTIES_SELECT_LIST;
         }
 
-        for ( PropertiesSelector selectPropertiesSet : selectPropertiesSets )
+        for ( PropertiesPatternSet selectPropertiesSet : selectPropertiesSets )
         {
             properties.putAll( getProperties( selectPropertiesSet ) );
         }

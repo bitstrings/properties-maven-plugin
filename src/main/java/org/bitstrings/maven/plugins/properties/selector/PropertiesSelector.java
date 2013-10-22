@@ -1,28 +1,16 @@
 package org.bitstrings.maven.plugins.properties.selector;
 
 public class PropertiesSelector
+    implements Selector
 {
-    private SetSelector propertySet;
+    private SelectorSet keysSelectors;
 
-    private SetSelector groupSet;
+    private SelectorSet valuesSelectors;
 
-    public SetSelector getPropertySet()
+    @Override
+    public boolean accept( String value )
     {
-        return propertySet;
-    }
-
-    public void setPropertiesSet( SetSelector propertiesSet )
-    {
-        this.propertySet = propertiesSet;
-    }
-
-    public SetSelector getGroupSet()
-    {
-        return groupSet;
-    }
-
-    public void setGroupSet( SetSelector groupSet )
-    {
-        this.groupSet = groupSet;
+        return ( ( keysSelectors == null ) || keysSelectors.accept( value ) )
+                        && ( ( valuesSelectors == null ) || valuesSelectors.accept( value ) );
     }
 }
